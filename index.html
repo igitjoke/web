@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-us">
 <head>
 <meta charset="UTF-8">
@@ -28,18 +28,33 @@ $(function() {
 </script>
 <script type="text/javascript">
 </script>
+	<script type="text/javascript">
+	function changeImg(objImg)
+	{
+		//设置最大宽度
+		var most = 240;        
+		if(objImg.width > most)
+		{
+			var scaling = 1-(objImg.width-most)/objImg.width;    
+			//计算缩小比例
+			objImg.width = objImg.width*scaling;
+			objImg.height = objImg.height;              	//img元素没有设置高度时将自动等比例缩小
+			// objImg.height = objImg.height*scaling;    //img元素设置高度时需进行等比例缩小
+		}
+	}
+	</script>
 </head>
 <body>
 <section class="page-header">
-	<h3 class="project-name">GIT笑话网 -- www.gitjoke.com</h3>
+	<h3 class="project-name">GIT笑话网 - gitjoke.com</h3>
 </section>
 <section class="main-content">
 
 	<!-- stdout //-->
-	<center><p id="StdOut"><StdOut></p></center>
+	<p id="StdOut"><StdOut></p>
 
       	<footer class="site-footer">
-      	<h5>@ 2016 GIT 笑话网 -- www.gitjoke.com | 隐私声明和 Cookie
+      	<h5>@ 2016 GIT 笑话网 - www.gitjoke.com | 隐私声明和 Cookie
       	<a href="http://go.microsoft.com/fwlink/?LinkId=248686&CLCID=804" target=_blank>@</a></h5>
       	</footer>
 
@@ -48,7 +63,40 @@ $(function() {
 	funcShowGitJokeAll ();
 
 	function funcShowGitJokeAll (){
-		$("#StdOut").text ("hi");
+		
+		var tGitJokeAllTalbe = Bmob.Object.extend ("GitJokeAll");
+		var tQuery = new Bmob.Query (tGitJokeAllTalbe);
+		var strFullPage = "";
+		var strOneLine = "";
+
+		tQuery.descending("createdAt");
+		tQuery.limit (1000);
+        	tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var strName = object.get('strName');
+				var strContent = object.get('strContent');
+				var strImgUrl = object.get('strImgUrl');
+				var strColor = "blue";
+				if (i%2==0)
+					strColor = "green";
+
+				var strNameHtml = "<b><font color=" + strColor + ">" + strName + "</font></b>";
+				var strContentHtml = strContent;
+				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
+
+				strOneLine = strNameHtml + "</br>" + 
+					strContentHtml + "</br>" + 
+					strImgUrlHtml + "</br></br>";
+				strFullPage += strOneLine;
+			}
+			$("#StdOut").html (strFullPage);			
+            	},
+            	error: function(error) {
+                	$("#StdOut").text ("Query failed: " + error.code + " " + error.message);
+            	}
+        });       
+
 	}
 	</script>
 
