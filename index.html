@@ -73,19 +73,26 @@ $(function() {
 		tQuery.limit (1000);
         	tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
+				var iNo = results.length-i;
 				var object = results[i];
 				var strName = object.get('strName');
 				var strContent = object.get('strContent');
 				var strImgUrl = object.get('strImgUrl');
-				var strColor = "blue";
-				if (i%2==0)
+				var strColor;
+				if (i%6==0||i%6==1){
 					strColor = "green";
+				} else if (i%6==2||i%6==3) {
+					strColor = "blue";
+				} else {
+					strColor = "red";
+				}
 
+				var strNoHtml = "<b><font size=10>" + iNo + "</font></b>";
 				var strNameHtml = "<b><font color=" + strColor + ">" + strName + "</font></b>";
 				var strContentHtml = strContent;
 				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
 
-				strOneLine = strNameHtml + "</br>" + 
+				strOneLine = strNoHtml + " " + strNameHtml + "</br>" + 
 					strContentHtml + "</br>" + 
 					strImgUrlHtml + "</br></br>";
 				strFullPage += strOneLine;
