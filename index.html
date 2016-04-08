@@ -87,12 +87,12 @@ $(function() {
 					strColor = "red";
 				}
 
-				var strNoHtml = "<b><font size=6>" + iNo + "</font></b>";
+				var strNoHtml = "<b><font size=6>" + iNo + ".</font></b>";
 				var strNameHtml = "<b><font size=6 color=" + strColor + ">" + strName + "</font></b>";
 				var strContentHtml = strContent;
 				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
 
-				strOneLine = strNoHtml + " " + strNameHtml + "</br>" + 
+				strOneLine = strNoHtml + "&nbsp;&nbps;" + strNameHtml + "</br>" + 
 					strContentHtml + "</br>" + 
 					strImgUrlHtml + "</br></br>";
 				strFullPage += strOneLine;
