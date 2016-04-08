@@ -1,5 +1,7 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
 <head>
+<meta charset="UTF-8">
 <title>add - gitjoke.com</title>
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bmob-min.js"></script>
@@ -9,17 +11,63 @@
 <body>
 <form name="tFrom1" id="idForm1">
 <ul>
-<li>title:<input type="text" name="tTitle" id="idTitle" size="60" autofocus /></li>
-<li>content:<textarea name="tContent" id="idContent" rows=15 cols=60></textarea></li>
-<li>image:<input type="text" name="tImage" id="idImage" size="60" /></li>
-<li><input type="button" name="tAddBtn" id="idAddBtn" value="Add" onclick="funcAddNew(this);" /></li>
+<li>标题: <input type="text" name="tTitle" id="idTitle" size="60" autofocus /></li></br>
+<li>内容: <textarea name="tContent" id="idContent" rows=15 cols=58></textarea></li></br>
+<li>图片: <input type="text" name="tImage" id="idImage" size="60" /></li></br>
+<li>添加: <input type="button" name="tAddBtn" id="idAddBtn" value="Add a joke!" onclick="funcAddNew(this);" /></li></br>
 </ul>
 </form>
 <p id="idStdout"></p>
-
 <script>
 function funcAddNew() {
-	$("#idStdout").val($("#idTitle").val());
+	//$("#idStdout").html($("#idTitle").val());
+	
+	var strTitle = $("#idTitle").val();
+	var strContent = $("#idContent").val();
+	var strImage = $("#idImage").val();
+	strTitle = $.trim(strTitle);
+	strContent = $.trim(strContent);
+	strImage = $.trim(strImage);
+	
+	if (strTitle === ""){
+		$("#idTitle").focus();
+		return;
+	} 
+
+	if (strContent === "") {
+		$("#idContent").focus();
+		return;
+	}
+
+	if (strImage === "") {
+		$("#idImage").focus();
+		return;
+	}
+
+        var GitJokeAllTable = Bmob.Object.extend("GitJokeAll");
+        var tGitJoke = new GitJokeAllTable();
+
+        tGitJoke.set("strName", strTitle);
+	tGitJoke.set("strContent", strContent);
+	tGitJoke.set("strImgUrl", strImage);
+	
+	tGitJoke.save(null,{
+		success: function(object) {
+			$("#idStdout").html("Added OK! // the new item's object.id is " + object.id + "</br></br>" +
+				"标题:" + strTitle + "</br></br>" +
+				"内容:" + strContent + "</br></br>" + 
+				"图片:" + strImage + "</br></br>");
+			$("#idTitle").val("");
+			$("#idContent").val("");
+			$("#idImage").val("");
+			$("#idTitle").focus();
+		},
+		error: function(model, error) {
+			$("#idStdout").html("Added failed! // error message is " + error.message);
+			$("#idTitle").focus();
+		}
+	});
+		
 }
 </script>
 </body>
