@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>add - gitjoke.com</title>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bmob-min.js"></script>
+<script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
+
+</head>
+<body>
+<form name="tFrom1" id="idForm1">
+<ul>
+<li>title:<input type="text" name="tTitle" id="idTitle" size="60" autofocus /></li>
+<li>content:<textarea name="tContent" id="idContent" rows=15 cols=60></textarea></li>
+<li>image:<input type="text" name="tImage" id="idImage" size="60" /></li>
+<li><input type="button" name="tAddBtn" id="idAddBtn" value="Add" onclick="funcAddNew(this);" /></li>
+</ul>
+</form>
+<p id="idStdout"></p>
+
+<script>
+function funcAddNew() {
+	$("#idStdout").val($("#idTitle").val());
+}
+</script>
+</body>
+</html>
+
