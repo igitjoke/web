@@ -2,7 +2,7 @@
 <html lang="en-us">
 <head>
 <meta charset="UTF-8">
-<title>GIT笑话网 - gitjoke.com</title>
+<title>GIT笑话 - gitjoke.com</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
 <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
@@ -46,7 +46,7 @@ $(function() {
 </head>
 <body>
 <section class="page-header">
-	<h3 class="project-name">GIT笑话网 - gitjoke.com</h3>
+	<h3 class="project-name">GIT笑话 - gitjoke.com</h3>
 </section>
 <section class="main-content">
 
@@ -56,7 +56,7 @@ $(function() {
 	<p id="idStdout3"></p>
 
       	<footer class="site-footer">
-      	<h5>@ 2016 GIT 笑话网 - gitjoke.com | 隐私声明和 Cookie
+      	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
       	<a href="http://go.microsoft.com/fwlink/?LinkId=248686&CLCID=804" target=_blank>@</a></h5>
       	</footer>
 
@@ -64,7 +64,7 @@ $(function() {
 	<script type="text/javascript">
 
 	// RUN
-	funcShowGitJokeAll (0, 4, "#idStdout1");
+	funcShowGitJokeAll (0, 6, "#idStdout1");
 
 	// READY
 	$(document).ready(function() {
@@ -110,7 +110,7 @@ $(function() {
 				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
 				strOneLine = strNameHtml + "</br>" + 
 					strContentHtml + "</br>" + 
-					strImgUrlHtml + "</br></br>";
+					"&nbsp; &nbsp; &nbsp; &nbsp;" + strImgUrlHtml + "</br></br>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
