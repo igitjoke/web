@@ -51,7 +51,9 @@ $(function() {
 <section class="main-content">
 
 	<!-- stdout //-->
-	<p id="StdOut"><StdOut></p>
+	<p id="idStdout1"></p>
+	<p id="idStdout2"><font color=red>正在加载，请稍后......</font></p>
+	<p id="idStdout3"><font color=red>正在加载，请稍后......</font></p>
 
       	<footer class="site-footer">
       	<h5>@ 2016 GIT 笑话网 - gitjoke.com | 隐私声明和 Cookie
@@ -60,20 +62,36 @@ $(function() {
 
 	<!-- RUN //-->
 	<script type="text/javascript">
-	funcShowGitJokeAll ();
 
-	function funcShowGitJokeAll (){
-		
+	// RUN
+	funcShowGitJokeAll (0, 2, "#idStdout1");
+
+	// READY
+	$(document).ready(function() {
+		$.ajax({url:"/get2.html", 
+			success:function(msg){
+				$("#idStdout2").html (msg);
+			}
+		});
+
+		$.ajax({url:"/get3.html", 
+			success:function(msg){
+				$("#idStdout3").html (msg);
+			}
+		});		
+	});
+
+	// GET JOKES
+	function funcShowGitJokeAll (iSkipCount, iLimitCount, idStdout){
 		var tGitJokeAllTalbe = Bmob.Object.extend ("GitJokeAll");
 		var tQuery = new Bmob.Query (tGitJokeAllTalbe);
 		var strFullPage = "";
 		var strOneLine = "";
-
 		tQuery.descending("createdAt");
-		tQuery.limit (1000);
+		tQuery.skip (iSkipCount);
+		tQuery.limit (iLimitCount);
         	tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
-				var iNo = results.length-i;
 				var object = results[i];
 				var strName = object.get('strName');
 				var strContent = object.get('strContent');
@@ -87,26 +105,33 @@ $(function() {
 					strColor = "red";
 				}
 
-				var strNoHtml = "<b><font size=6>" + iNo + ".</font></b>";
 				var strNameHtml = "<b><font size=6 color=" + strColor + ">" + strName + "</font></b>";
 				var strContentHtml = strContent;
 				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
-
-				strOneLine = strNoHtml + " " + strNameHtml + "</br>" + 
+				strOneLine = strNameHtml + "</br>" + 
 					strContentHtml + "</br>" + 
 					strImgUrlHtml + "</br></br>";
 				strFullPage += strOneLine;
 			}
-			$("#StdOut").html (strFullPage);			
+			$(idStdout).html (strFullPage);			
             	},
             	error: function(error) {
-                	$("#StdOut").text ("Query failed: " + error.code + " " + error.message);
+                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
             	}
-        });       
-
+        }); 
 	}
 	</script>
 
+	<script>
+	function getUrlParamValueOf (url, name) {
+		var reg = new RegExp('(\\?|&)' + name + '=([^&?]*)', 'i');
+		var arr = url.match(reg);
+		if (arr) {
+			return arr[2];
+		}
+		return null;
+	}
+	</script>
 </section>
 </body>
 </html>
