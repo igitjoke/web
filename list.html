@@ -52,9 +52,7 @@ $(function() {
 
 	<!-- stdout //-->
 	<p id="idStdout1"></p>
-	<img id ="idNextPageBtn2" src="/next_page_button.jpg" onclick="$('#idNextPageBtn2').hide(); $('#idStdout2').show(); $('#idNextPageBtn3').show();" />
 	<p id="idStdout2"></p>
-	<img id ="idNextPageBtn3" src="/next_page_button.jpg" onclick="$('#idNextPageBtn3').hide(); $('#idStdout3').show(); " />
 	<p id="idStdout3"></p>
 
       	<footer class="site-footer">
@@ -71,10 +69,6 @@ $(function() {
 	// READY
 	$(document).ready(function() {
 		setTimeout (function () {
-			$('#idNextPageBtn2').show();
-			$("#idStdout2").hide();
-			$('#idNextPageBtn3').hide();
-			$("#idStdout3").hide();
 			$.ajax({url:"/get2.html", 
 				success:function(msg){
 					$("#idStdout2").html (msg);
@@ -124,7 +118,7 @@ $(function() {
 					strGodCommentHtml = "";
 				}
 
-				strOneLine = strUpdateByIdHtml + " " + strNameHtml + " " + strDeleteByIdHtml + "</br>" + 
+				strOneLine = strNameHtml + " " + strUpdateByIdHtml + " " + strDeleteByIdHtml + "</br>" + 
 					strContentHtml + "</br>" + 
 					"&nbsp; &nbsp; &nbsp; &nbsp;" + strImgUrlHtml + "</br>" +
 					strGodCommentHtml + "</br></br>";

@@ -113,7 +113,8 @@ function funcUpdate() {
 			});
 		},
 		error: function(object, error) {
-
+			$("#idStdout").html("Update object (" + object.id + ") failed! // error message is " + error.message);
+			$("#idTitle").focus();
 		}
 	});
 }
