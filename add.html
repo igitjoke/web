@@ -6,7 +6,6 @@
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bmob-min.js"></script>
 <script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
-
 </head>
 <body>
 <form name="tFrom1" id="idForm1">
@@ -43,10 +42,10 @@ function funcAddNew() {
 		return;
 	}
 
-        var GitJokeAllTable = Bmob.Object.extend("GitJokeAll");
-        var tGitJoke = new GitJokeAllTable();
+       var GitJokeAllTable = Bmob.Object.extend("GitJokeAll");
+       var tGitJoke = new GitJokeAllTable();
 
-        tGitJoke.set("strName", strTitle);
+       tGitJoke.set("strName", strTitle);
 	tGitJoke.set("strContent", strContent);
 	tGitJoke.set("strImgUrl", strImage);
 	

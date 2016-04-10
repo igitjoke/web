@@ -9,7 +9,114 @@
 </head>
 <body>
 
-update
+<form name="tFrom1" id="idForm1">
+<ul>
+<li>主页: GIT笑话 <a href="http://www.gitjoke.com" target=_blank>http://gitjoke.com</a></li></br>
+<li>标题: <input type="text" name="tTitle" id="idTitle" size="60" autofocus /></li></br>
+<li>内容: <textarea name="tContent" id="idContent" rows=15 cols=58></textarea></li></br>
+<li>图片: <input type="text" name="tImage" id="idImage" size="60" /></li></br>
+<li>添加: <input type="button" name="tUpdateBtn" id="idUpdateBtn" value="Update this joke!" onclick="funcUpdate(this);" /></li></br>
+</ul>
+</form>
 
+<p id="idStdout"></p>
+
+<script>
+function funcGetUrlParamValueOf (url, name) {
+	var reg = new RegExp('(\\?|&)' + name + '=([^&?]*)', 'i');
+	var arr = url.match(reg);
+	if (arr) {
+		return arr[2];
+	}
+	return null;
+}
+</script>
+
+<script>
+// http://127.0.0.1/update.html/?objectId=6c84a335e0
+var g_strParamObjectId = funcGetUrlParamValueOf (window.location.href, "objectId");
+
+// READY
+$(document).ready(function() {
+
+	$("#idForm1").hide();
+
+	setTimeout (function () {
+		if (!g_strParamObjectId){
+			$("#idStdout").html("<font color=red>Don't allow to visit the address (" + window.location.href + ") directly!</font>");
+
+		} else {
+		       var GitJokeAllTable = Bmob.Object.extend("GitJokeAll");
+		       var query = new Bmob.Query (GitJokeAllTable);
+			query.get(g_strParamObjectId, {
+				success: function(tGitJoke) {
+					$("#idTitle").val (tGitJoke.get ("strName"));
+					$("#idContent").val (tGitJoke.get ("strContent"));
+					$("#idImage").val (tGitJoke.get ("strImgUrl"));
+					$("#idTitle").focus();
+					$("#idForm1").show();
+				},
+				error: function(object, error) {
+					$("#idStdout").html("<font color=red>Cannot load the joke of " + g_strParamObjectId + "!</font>");
+				}
+			});
+		}
+	}, 0);
+});
+</script>
+
+<script>
+function funcUpdate() {
+	var strTitle = $("#idTitle").val();
+	var strContent = $("#idContent").val();
+	var strImage = $("#idImage").val();
+	strTitle = $.trim(strTitle);
+	strContent = $.trim(strContent);
+	strImage = $.trim(strImage);
+	
+	if (strTitle === ""){
+		$("#idTitle").focus();
+		return;
+	} 
+
+	if (strContent === "") {
+		$("#idContent").focus();
+		return;
+	}
+
+	if (strImage === "") {
+		$("#idImage").focus();
+		return;
+	}
+
+       var GitJokeAllTable = Bmob.Object.extend("GitJokeAll");
+       var query = new Bmob.Query (GitJokeAllTable);
+	query.get(g_strParamObjectId, {
+		success: function(tGitJoke) {
+
+		       tGitJoke.set("strName", strTitle);
+			tGitJoke.set("strContent", strContent);
+			tGitJoke.set("strImgUrl", strImage);
+			
+			tGitJoke.save(null,{
+				success: function(object) {
+					$("#idStdout").html("Update OK! // the new item's object.id is " + object.id + "</br></br>" +
+						"标题:" + strTitle + "</br></br>" +
+						"内容:" + strContent + "</br></br>" + 
+						"图片:" + strImage + "</br></br>");
+					$("#idTitle").focus();
+				},
+				error: function(model, error) {
+					$("#idStdout").html("Update failed! // error message is " + error.message);
+					$("#idTitle").focus();
+				}
+			});
+		},
+		error: function(object, error) {
+
+		}
+	});
+}
+</script>
 </body>
 </html>

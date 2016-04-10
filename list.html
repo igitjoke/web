@@ -2,7 +2,7 @@
 <html lang="en-us">
 <head>
 <meta charset="UTF-8">
-<title>GIT笑话 - gitjoke.com</title>
+<title>List - gitjoke.com</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
 <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
@@ -100,6 +100,8 @@ $(function() {
         	tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
+				// var strObjectID = object.get('objectId');
+				var strObjectID = object.id;
 				var strName = object.get('strName');
 				var strContent = object.get('strContent');
 				var strImgUrl = object.get('strImgUrl');
@@ -112,10 +114,12 @@ $(function() {
 					strColor = "red";
 				}
 
+				var strUpdateByIdHtml = "<a href='/update.html/?objectId=" + strObjectID + "' target=_blank><b>【修改】</b></a>";
+				var strDeleteByIdHtml = "<a href='/delete.html/?objectId=" + strObjectID + "' target=_blank>【删除】</a>";
 				var strNameHtml = "<b><font size=6 color=" + strColor + ">" + strName + "</font></b>";
 				var strContentHtml = strContent;
 				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
-				strOneLine = strNameHtml + "</br>" + 
+				strOneLine = strUpdateByIdHtml + " " + strNameHtml + " " + strDeleteByIdHtml + "</br>" + 
 					strContentHtml + "</br>" + 
 					"&nbsp; &nbsp; &nbsp; &nbsp;" + strImgUrlHtml + "</br></br>";
 				strFullPage += strOneLine;
@@ -126,6 +130,17 @@ $(function() {
                 	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
             	}
         }); 
+	}
+	</script>
+
+	<script>
+	function getUrlParamValueOf (url, name) {
+		var reg = new RegExp('(\\?|&)' + name + '=([^&?]*)', 'i');
+		var arr = url.match(reg);
+		if (arr) {
+			return arr[2];
+		}
+		return null;
 	}
 	</script>
 </section>
