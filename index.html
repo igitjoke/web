@@ -103,21 +103,28 @@ $(function() {
 				var strName = object.get('strName');
 				var strContent = object.get('strContent');
 				var strImgUrl = object.get('strImgUrl');
+				var strGodComment = object.get('strGodComment');
 				var strColor;
 				if (i%6==0||i%6==1){
 					strColor = "green";
 				} else if (i%6==2||i%6==3) {
 					strColor = "blue";
 				} else {
-					strColor = "red";
+					strColor = "black";
 				}
 
 				var strNameHtml = "<b><font size=6 color=" + strColor + ">" + strName + "</font></b>";
 				var strContentHtml = strContent;
 				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
+				var strGodCommentHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<b><font color=red>网友评论: " + strGodComment + "</font></b>";
+				if (!strGodComment) {
+					strGodCommentHtml = "";
+				}
+
 				strOneLine = strNameHtml + "</br>" + 
 					strContentHtml + "</br>" + 
-					"&nbsp; &nbsp; &nbsp; &nbsp;" + strImgUrlHtml + "</br></br>";
+					"&nbsp; &nbsp; &nbsp; &nbsp;" + strImgUrlHtml + "</br>" +
+					strGodCommentHtml + "</br></br>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
