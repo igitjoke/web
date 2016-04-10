@@ -54,17 +54,46 @@ $(function() {
 	<p id="idStdout1"></p>
 	<p id="idStdout2"></p>
 	<p id="idStdout3"></p>
+	<form id="idFormNext">
+		<input type="button" id="idHomeBtn" value="第一页" onclick="funcGoHomePage(this);" />
+		<input type="button" id="idNextBtn" value="下一页" onclick="funcGoNextPage(this);" />
+	</form>
 
       	<footer class="site-footer">
       	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
       	<a href="http://go.microsoft.com/fwlink/?LinkId=248686&CLCID=804" target=_blank>@</a></h5>
       	</footer>
 
+	<script>
+	function funcGetUrlParamValueOf (url, name) {
+		var reg = new RegExp('(\\?|&)' + name + '=([^&?]*)', 'i');
+		var arr = url.match(reg);
+		if (arr) {
+			return arr[2];
+		}
+		return null;
+	}
+	</script>
+
+	<script>
+	function funcGoHomePage (){
+		window.location.href = "/index.html";
+	}
+	function funcGoNextPage (){
+		window.location.href = "/index.html?iPageNo=" + (parseInt(g_iPageNo,10)+1);
+	}
+	</script>
+
 	<!-- RUN //-->
 	<script type="text/javascript">
 
+	var g_iPageNo = funcGetUrlParamValueOf (window.location.href, "iPageNo");
+	if (!g_iPageNo) {
+		g_iPageNo = 0;
+	}
+
 	// RUN
-	funcShowGitJokeAll (0, 6, "#idStdout1");
+	funcShowGitJokeAll (g_iPageNo*24+0, 6, "#idStdout1");
 
 	// READY
 	$(document).ready(function() {
