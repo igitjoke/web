@@ -187,8 +187,8 @@ $(function() {
 		tQuery.count({
 			success: function(iTotalCount) {
 				g_iTotalCount = iTotalCount;
-				var strShowPageInfo = "<font color=brown>我们目前已收录了" + iTotalCount + "条笑话，纯人工采编每天只能更新数条，请见谅！" +
-					"您正在看的是第"+ (parseInt(g_iPageNo,10)+1) +"页。</font>";
+				var strShowPageInfo = "我们已收录了<font color=blue>" + iTotalCount + "</font>条笑话，人工采编，每天更新十余条。" +
+					"每页24条，您正在看的是第<font color=blue>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
 				$("#idStdout0").html (strShowPageInfo);
 				$("#idStdout4").html (strShowPageInfo);
 			},
