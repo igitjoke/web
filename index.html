@@ -60,7 +60,13 @@ $(function() {
 
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
-	<p id="idStdout1"></p>
+	<p id="idStdout1">
+		<b><font size=6 color=brown>那就多几次呗</font></b></br>
+		书上说：老婆生气了，只要按倒在床嘿咻一下就能平息。我试了几次，还真管用！但是现在老婆动不动就生气，感觉自己上当了。</br>
+		<img src="http://tse1.mm.bing.net/th?&id=OIP.M9aad3b54ec4aa6073baf4a89c0ccc344o0&w=198&h=187&c=0&pid=1.9&rs=0&p=0" /></br>
+		</br>
+		加载中，请稍后片刻......</br>
+	</p>
 	<p id="idStdout2"></p>
 	<p id="idStdout3"></p>
 	<p id="idStdout4"></p>
@@ -108,12 +114,14 @@ $(function() {
 		g_iPageNo = 0;
 	}
 
-	// RUN
-	funcShowGitJokeAll (g_iPageNo*24+0, 6, "#idStdout1");
-
 	// READY
 	$(document).ready(function() {
 		setTimeout (function () {
+			$.ajax({url:"/get1.html", 
+				success:function(msg){
+					$("#idStdout1").html (msg);
+				}
+			});
 			$.ajax({url:"/get2.html", 
 				success:function(msg){
 					$("#idStdout2").html (msg);
@@ -187,8 +195,8 @@ $(function() {
 		tQuery.count({
 			success: function(iTotalCount) {
 				g_iTotalCount = iTotalCount;
-				var strShowPageInfo = "我们已收录了<font color=blue>" + iTotalCount + "</font>条笑话，人工采编，每天更新十余条。" +
-					"每页24条，您正在看的是第<font color=blue>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
+				var strShowPageInfo = "共收录<font color=blue size=6>" + iTotalCount + "</font>条笑话，纯人工采编，每天持续更新。" +
+					"每页24条，共"+(Math.ceil(parseInt(iTotalCount,10)/24))+"页。您正在看的是第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
 				$("#idStdout0").html (strShowPageInfo);
 				$("#idStdout4").html (strShowPageInfo);
 			},

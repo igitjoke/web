@@ -100,12 +100,14 @@ $(function() {
 		g_iPageNo = 0;
 	}
 
-	// RUN
-	funcShowGitJokeAll (g_iPageNo*24+0, 6, "#idStdout1");
-
 	// READY
 	$(document).ready(function() {
 		setTimeout (function () {
+			$.ajax({url:"/get1.html", 
+				success:function(msg){
+					$("#idStdout1").html (msg);
+				}
+			});			
 			$.ajax({url:"/get2.html", 
 				success:function(msg){
 					$("#idStdout2").html (msg);
