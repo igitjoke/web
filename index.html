@@ -31,15 +31,23 @@ $(function() {
 	<script type="text/javascript">
 	function changeImg(objImg)
 	{
-		//设置最大宽度
-		var most = 240;        
-		if(objImg.width > most)
-		{
-			var scaling = 1-(objImg.width-most)/objImg.width;    
-			//计算缩小比例
-			objImg.width = objImg.width*scaling;
-			objImg.height = objImg.height;              	//img元素没有设置高度时将自动等比例缩小
-			// objImg.height = objImg.height*scaling;    //img元素设置高度时需进行等比例缩小
+		var most = 240;
+		if (objImg.width > objImg.height) {
+			if(objImg.width > most) {
+				var scaling = most/objImg.width;    
+				objImg.width = objImg.width*scaling;
+			} else if (objImg.width < most) {
+				var scaling = most/objImg.width;
+				objImg.width = objImg.width*scaling;			
+			}
+		} else {
+			if(objImg.height > most) {
+				var scaling = most/objImg.height;    
+				objImg.height = objImg.height*scaling;
+			} else if (objImg.height < most) {
+				var scaling = most/objImg.height;
+				objImg.height = objImg.height*scaling;			
+			}
 		}
 	}
 	</script>
@@ -179,8 +187,8 @@ $(function() {
 		tQuery.count({
 			success: function(iTotalCount) {
 				g_iTotalCount = iTotalCount;
-				var strShowPageInfo = "<font color=brown>我们目前只收录了" + iTotalCount + "条笑话，请见谅！" +
-					"您目前看到的是第"+ (parseInt(g_iPageNo,10)+1) +"页。</font>";
+				var strShowPageInfo = "<font color=brown>我们目前已收录了" + iTotalCount + "条笑话，纯人工采编每天只能更新数条，请见谅！" +
+					"您正在看的是第"+ (parseInt(g_iPageNo,10)+1) +"页。</font>";
 				$("#idStdout0").html (strShowPageInfo);
 				$("#idStdout4").html (strShowPageInfo);
 			},
