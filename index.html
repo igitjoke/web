@@ -51,9 +51,11 @@ $(function() {
 <section class="main-content">
 
 	<!-- stdout //-->
+	<p id="idStdout0"></p>
 	<p id="idStdout1"></p>
 	<p id="idStdout2"></p>
 	<p id="idStdout3"></p>
+	<p id="idStdout4"></p>
 	<form id="idFormNext">
 		<input type="button" id="idHomeBtn" value="第一页" onclick="funcGoHomePage(this);" />
 		<input type="button" id="idNextBtn" value="下一页" onclick="funcGoNextPage(this);" />
@@ -76,11 +78,17 @@ $(function() {
 	</script>
 
 	<script>
+	var g_iTotalCount = 0;
+
 	function funcGoHomePage (){
 		window.location.href = "/index.html";
 	}
 	function funcGoNextPage (){
-		window.location.href = "/index.html?iPageNo=" + (parseInt(g_iPageNo,10)+1);
+		if (24*(parseInt(g_iPageNo,10)+1) >= g_iTotalCount) {	// 每页24条笑话
+			window.location.href = "/index.html";  // 超过则返回第一页
+		} else {
+			window.location.href = "/index.html?iPageNo=" + (parseInt(g_iPageNo,10)+1);
+		}
 	}
 	</script>
 
@@ -106,6 +114,11 @@ $(function() {
 			$.ajax({url:"/get3.html", 
 				success:function(msg){
 					$("#idStdout3").html (msg);
+				}
+			});
+			$.ajax({url:"/getcount.html",
+				success:function(msg){
+					$("#idStdout0").html (msg);
 				}
 			});
 		}, 0);
@@ -156,6 +169,26 @@ $(function() {
                 	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
             	}
         }); 
+	}
+	</script>
+
+	<script>
+	function funcGetCount() {
+		var tGitJokeAllTalbe = Bmob.Object.extend ("GitJokeAll");
+		var tQuery = new Bmob.Query (tGitJokeAllTalbe);
+		tQuery.count({
+			success: function(iTotalCount) {
+				g_iTotalCount = iTotalCount;
+				var strShowPageInfo = "<font color=brown>我们目前只收录了" + iTotalCount + "条笑话，请见谅！" +
+					"您目前看到的是第"+ (parseInt(g_iPageNo,10)+1) +"页。</font>";
+				$("#idStdout0").html (strShowPageInfo);
+				$("#idStdout4").html (strShowPageInfo);
+			},
+			error: function(error) {
+				$("#idStdout0").text (error.message);
+				$("#idStdout4").text (error.message);
+			}
+		}); 
 	}
 	</script>
 </section>
