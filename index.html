@@ -57,7 +57,7 @@ $(function() {
 	<h3 class="project-name">GIT笑话 - gitjoke.com</h3>
 </section>
 <section class="main-content">
-
+	<p><font color=red><b>本站拟征笑话配音，男女声不限，以沙哑又甜美、野性又温婉为最佳，每个壹佰元起，请关注本站后续通告。</b></font></p>
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
 	<p id="idStdout1">加载中，请稍后片刻......</p>
@@ -190,8 +190,7 @@ $(function() {
 			success: function(iTotalCount) {
 				g_iTotalCount = iTotalCount;
 				var strShowPageInfo = "我们至今已收录<font color=blue size=6>" + iTotalCount + "</font>条笑话，" +
-					"共"+(Math.ceil(parseInt(iTotalCount,10)/18))+"页，当前第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。" +
-					"<font color=red><b>本站拟征笑话配音，男女声不限，以沙哑又甜美、野性又婉约为最佳，每个壹佰元起，请关注本站后续通告。</b></font>";
+					"共"+(Math.ceil(parseInt(iTotalCount,10)/18))+"页，当前第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
 				$("#idStdout0").html (strShowPageInfo);
 				$("#idStdout4").html (strShowPageInfo);
 			},
