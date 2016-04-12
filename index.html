@@ -92,7 +92,7 @@ $(function() {
 		window.location.href = "/index.html";
 	}
 	function funcGoNextPage (){
-		if (24*(parseInt(g_iPageNo,10)+1) >= g_iTotalCount) {	// 每页24条笑话
+		if (18*(parseInt(g_iPageNo,10)+1) >= g_iTotalCount) {	// 每页18条笑话
 			window.location.href = "/index.html";  // 超过则返回第一页
 		} else {
 			window.location.href = "/index.html?iPageNo=" + (parseInt(g_iPageNo,10)+1);
@@ -189,8 +189,9 @@ $(function() {
 		tQuery.count({
 			success: function(iTotalCount) {
 				g_iTotalCount = iTotalCount;
-				var strShowPageInfo = "共收录<font color=blue size=6>" + iTotalCount + "</font>条笑话，纯人工采编，每天持续更新。" +
-					"每页24条，共"+(Math.ceil(parseInt(iTotalCount,10)/24))+"页。您正在看的是第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
+				var strShowPageInfo = "我们至今已收录<font color=blue size=6>" + iTotalCount + "</font>条笑话，" +
+					"共"+(Math.ceil(parseInt(iTotalCount,10)/18))+"页，当前第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。" +
+					"<font color=red><b>本站拟征笑话配音，男女声不限，以沙哑又甜美、野性又婉约为最佳，每个壹佰元起，请关注本站后续通告。</b></font>";
 				$("#idStdout0").html (strShowPageInfo);
 				$("#idStdout4").html (strShowPageInfo);
 			},
