@@ -57,9 +57,11 @@ $(function() {
 	<h3 class="project-name">GIT笑话 - gitjoke.com</h3>
 </section>
 <section class="main-content">
-	<p><font color=red><b>
-		本站已收录<a href="/lengxiaohua.html" target=_blank><font size=6>10,000条原始笑话</font></a>，正在每日逐一精选、编辑、配图、调教，请耐心等待！任何疑问请致信：<a href="mailto:i@gitjoke.com">i@gitjoke.com</a>
-	</b></font></p>
+	<p>
+		<span style="background-color: #FAEBD7"><b>笑话精选</b></span> |
+		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
+		<a href="mailto:i@gitjoke.com?subject=关于GIT笑话-gitjoke.com网站，我想问一个问题">联系方式</a>
+	</p>
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
 	<p id="idStdout1">加载中，请稍后片刻......</p>
@@ -201,7 +203,7 @@ $(function() {
 		tQuery.count({
 			success: function(iTotalCount) {
 				g_iTotalCount = iTotalCount;
-				var strShowPageInfo = "我们至今已精选<font color=blue size=6>" + iTotalCount + "</font>条笑话，" +
+				var strShowPageInfo = "已采编<font color=blue size=6>" + iTotalCount + "</font>条精品笑话，" +
 					"共"+(Math.ceil(parseInt(iTotalCount,10)/18))+"页，当前第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
 				$("#idStdout0").html (strShowPageInfo);
 				$("#idStdout4").html (strShowPageInfo);
