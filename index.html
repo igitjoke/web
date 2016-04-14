@@ -66,6 +66,8 @@ $(function() {
 	<p id="idStdout4"></p>
 	<form id="idFormNext">
 		<input type="button" id="idHomeBtn" value="第一页" onclick="funcGoHomePage(this);" />
+		&nbsp;&nbsp;
+		<input type="button" id="idNextBtn" value="上一页" onclick="funcGoPrevPage(this);" />
 		<input type="button" id="idNextBtn" value="下一页" onclick="funcGoNextPage(this);" />
 	</form>
 
@@ -90,6 +92,13 @@ $(function() {
 
 	function funcGoHomePage (){
 		window.location.href = "/index.html";
+	}
+	function funcGoPrevPage (){
+		if (parseInt(g_iPageNo, 10)-1 >= 0) {
+			window.location.href = "/index.html?iPageNo=" + (parseInt(g_iPageNo,10)-1);
+		} else {
+			window.location.href = "/index.html?iPageNo=" + (Math.floor (parseInt(g_iTotalCount/18,10)));
+		}
 	}
 	function funcGoNextPage (){
 		if (18*(parseInt(g_iPageNo,10)+1) >= g_iTotalCount) {	// 每页18条笑话
