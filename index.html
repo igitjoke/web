@@ -89,22 +89,23 @@ $(function() {
 
 	<script>
 	var g_iTotalCount = 0;
+	var g_strHtmlFile = "/index.html";
 
 	function funcGoHomePage (){
-		window.location.href = "/index.html";
+		window.location.href = g_strHtmlFile;
 	}
 	function funcGoPrevPage (){
 		if (parseInt(g_iPageNo, 10)-1 >= 0) {
-			window.location.href = "/index.html?iPageNo=" + (parseInt(g_iPageNo,10)-1);
+			window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iPageNo,10)-1);
 		} else {
-			window.location.href = "/index.html?iPageNo=" + (Math.floor (parseInt(g_iTotalCount/18,10)));
+			window.location.href = g_strHtmlFile + "?iPageNo=" + (Math.floor (parseInt(g_iTotalCount/18,10)));
 		}
 	}
 	function funcGoNextPage (){
 		if (18*(parseInt(g_iPageNo,10)+1) >= g_iTotalCount) {	// 每页18条笑话
-			window.location.href = "/index.html";  // 超过则返回第一页
+			window.location.href = g_strHtmlFile;  // 超过则返回第一页
 		} else {
-			window.location.href = "/index.html?iPageNo=" + (parseInt(g_iPageNo,10)+1);
+			window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iPageNo,10)+1);
 		}
 	}
 	</script>
