@@ -107,7 +107,9 @@ $(function() {
 				var tQuery = new Bmob.Query (tGitJokeAllTalbe);
 				var strFullPage = "";
 				var strOneLine = "";
-				tQuery.skip (parseInt(Math.random()*iTotalCount)+1);
+				var iWhichOne = Math.floor(Math.random()*iTotalCount);
+				console.log (iTotalCount, iWhichOne);
+				tQuery.skip (iWhichOne);
 				tQuery.limit (1);
 		        	tQuery.find({success: function(results) {
 					for (var i = 0; i < results.length; i++) {
