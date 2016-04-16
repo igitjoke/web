@@ -103,7 +103,11 @@ $(function() {
 		if (parseInt(g_iPageNo, 10)-1 >= 0) {
 			window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iPageNo,10)-1);
 		} else {
-			window.location.href = g_strHtmlFile + "?iPageNo=" + (Math.floor (parseInt(g_iTotalCount/18,10)));
+			if (parseInt(g_iTotalCount,10)%18===0) {
+				window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iTotalCount/18,10)-1);
+			} else {
+				window.location.href = g_strHtmlFile + "?iPageNo=" + (Math.floor (parseInt(g_iTotalCount/18,10)));
+			}
 		}
 	}
 	function funcGoNextPage (){
