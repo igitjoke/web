@@ -58,7 +58,7 @@ $(function() {
 </section>
 <section class="main-content">
 	<p>
-		<span style="background-color: #3399CC"><b>笑话精选</b></span> |
+		<span style="background-color: #FFFF00"><b><a href="" onclick="funcGetRandomOne(this); return false;">随机翻页</a></b></span> |
 		<a href="/one.html" target=_self>一个笑话</a> |
 		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
 		<a href="/link.html" target=_self>联系方式</a> 
@@ -117,6 +117,10 @@ $(function() {
 			window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iPageNo,10)+1);
 		}
 	}
+	function funcGetRandomOne() {
+		var iWhichPage = Math.floor(Math.random()*(g_iTotalCount/18));
+		window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(iWhichPage,10));
+	}	
 	</script>
 
 	<!-- RUN //-->
