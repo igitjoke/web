@@ -13,11 +13,49 @@
 <li>主页: GIT笑话 <a href="http://www.gitjoke.com" target=_blank>http://gitjoke.com</a></li></br>
 <li>标题: <input type="text" name="tTitle" id="idTitle" size="60" autofocus /></li></br>
 <li>内容: <textarea name="tContent" id="idContent" rows=15 cols=58></textarea></li></br>
-<li>图片: <input type="text" name="tImage" id="idImage" size="60" /></li></br>
+<li>图片: <input type="text" name="tImage" id="idImage" size="60" /> <a href="http://cn.bing.com/images" target=_blank>必应图片搜索</a></li></br>
 <li>添加: <input type="button" name="tAddBtn" id="idAddBtn" value="Add a joke!" onclick="funcAddNew(this);" /></li></br>
 </ul>
 </form>
 <p id="idStdout"></p>
+
+<script>
+function funcGetUrlParamValueOf (url, name) {
+	var reg = new RegExp('(\\?|&)' + name + '=([^&?]*)', 'i');
+	var arr = url.match(reg);
+	if (arr) {
+		return arr[2];
+	}
+	return null;
+}
+</script>
+
+<script>
+// http://127.0.0.1/add.html/?objectId=6c84a335e0
+var g_strParamObjectId = funcGetUrlParamValueOf (window.location.href, "objectId");
+
+// READY
+$(document).ready(function() {
+	$("#idTitle").focus();
+	setTimeout (function () {
+		if (g_strParamObjectId){
+		       var GitJokeAllTable = Bmob.Object.extend("LengXiaoHua");
+		       var query = new Bmob.Query (GitJokeAllTable);
+			query.get(g_strParamObjectId, {
+				success: function(tGitJoke) {
+					$("#idContent").val (tGitJoke.get ("content"));
+					$("#idTitle").focus();
+				},
+				error: function(object, error) {
+					$("#idStdout").html("<font color=red>Cannot load the joke of " + g_strParamObjectId + "!</font>");
+				}
+			});
+		}
+	}, 0);
+});
+
+</script>
+
 <script>
 function funcAddNew() {
 	var strTitle = $("#idTitle").val();
