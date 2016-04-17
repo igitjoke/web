@@ -146,6 +146,7 @@ $(function() {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
 				var strContent = object.get('content');
+				var strLevel = object.get('level');				
 				var strColor;
 				if (i%3==0){
 					strColor = "green";
@@ -153,6 +154,10 @@ $(function() {
 					strColor = "blue";
 				} else {
 					strColor = "black";
+				}
+
+				if (strLevel === "1"){
+					strColor = "red";
 				}
 
 				var strContentHtml = "<font color=" + strColor + ">" + strContent + "</font>";

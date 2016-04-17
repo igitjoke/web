@@ -147,6 +147,7 @@ $(function() {
 				var object = results[i];
 				var strObjectID = object.id;
 				var strContent = object.get('content');
+				var strLevel = object.get('level');
 				var strColor;
 				if (i%3==0){
 					strColor = "green";
@@ -156,10 +157,15 @@ $(function() {
 					strColor = "black";
 				}
 
+				if (strLevel === "1"){
+					strColor = "red";
+				}
+
 				var strUpdateByIdHtml = "<a href='/add.html?objectId=" + strObjectID + "' target=_blank><b>【添加】</b></a>";
 				var strContentHtml = "<font color=" + strColor + ">" + strContent + "</font>";
+				var strLevelHtml = "<a href='' onclick='funcSetLevel(\"" + strObjectID + "\"); return false;'><b>【标记】</b></a>";
 
-				strOneLine = strContentHtml + " " + strUpdateByIdHtml + "</br></br>";
+				strOneLine = strContentHtml + " " + strUpdateByIdHtml + " " + strLevelHtml + "</br></br>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
@@ -189,6 +195,35 @@ $(function() {
 			}
 		}); 
 	}
+	</script>
+
+	<script>
+		function funcSetLevel(strObjectID) {
+			var TableLengXiaoHua = Bmob.Object.extend("LengXiaoHua");
+			var tQuery = new Bmob.Query(TableLengXiaoHua);
+			tQuery.get(strObjectID, {
+				success: function(object) {
+					if (object.get("level") === "1") {
+						object.set("level", "");
+					} else {
+						object.set("level", "1");
+					}
+					
+					object.save(null, {
+						success: function(objectUpdate) {
+							// alert("create object success, object score:"+objectUpdate.get("level"));
+							window.location.href = window	.location.href;
+						},
+						error: function(model, error) {
+							// alert("create object fail");
+						}
+					});
+				},
+				error: function(object, error) {
+					// alert("tQuery object fail");
+				}
+			});			
+		}
 	</script>
 </section>
 </body>
