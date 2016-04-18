@@ -139,22 +139,31 @@ $(function() {
 					$("#idStdout1").html (msg);
 				}
 			});
+		}, 10);
+
+		setTimeout (function () {
 			$.ajax({url:"/get2.html", 
 				success:function(msg){
 					$("#idStdout2").html (msg);
 				}
 			});
+		}, 20);
+
+		setTimeout (function () {
 			$.ajax({url:"/get3.html", 
 				success:function(msg){
 					$("#idStdout3").html (msg);
 				}
 			});
+		}, 30);
+
+		setTimeout (function () {
 			$.ajax({url:"/getcount.html",
 				success:function(msg){
 					$("#idStdout0").html (msg);
 				}
 			});
-		}, 0);
+		}, 40);						
 	});
 
 	// GET JOKES
