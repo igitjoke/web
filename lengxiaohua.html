@@ -139,7 +139,7 @@ $(function() {
 		var tQuery = new Bmob.Query (TableLengXiaoHua);
 		var strFullPage = "";
 		var strOneLine = "";
-		// tQuery.descending("createdAt");
+		tQuery.descending("createdAt");
 		tQuery.skip (iSkipCount);
 		tQuery.limit (iLimitCount);
         	tQuery.find({success: function(results) {
