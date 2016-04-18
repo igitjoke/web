@@ -70,7 +70,7 @@ $(function() {
 
 	<script>
 	var g_iTotalCount = 0;
-	var g_strHtmlFile = "/addx.html";
+	var g_strHtmlFile = "/addxlevel.html";
 
 	function funcGoHomePage (){
 		window.location.href = g_strHtmlFile;
@@ -139,6 +139,7 @@ $(function() {
 		var tQuery = new Bmob.Query (TableLengXiaoHua);
 		var strFullPage = "";
 		var strOneLine = "";
+		tQuery.equalTo("level", "1");
 		tQuery.descending("createdAt");
 		tQuery.skip (iSkipCount);
 		tQuery.limit (iLimitCount);
@@ -181,6 +182,7 @@ $(function() {
 	function funcGetCount() {
 		var TableLengXiaoHua = Bmob.Object.extend ("LengXiaoHua");
 		var tQuery = new Bmob.Query (TableLengXiaoHua);
+		tQuery.equalTo("level", "1");
 		tQuery.count({
 			success: function(iTotalCount) {
 				g_iTotalCount = iTotalCount;
