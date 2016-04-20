@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<title>QRCODE - gitjoke.com</title>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="jquery.qrcode.min.js"></script>
+</head>
+<body>
+
+<div id="qrcode"></div>
+
+<script>
+$(function(){
+    $('#qrcode').qrcode("http://www.gitjoke.com");
+    // 详细配置
+    // $('#qrcode').qrcode({
+    //     text: "http://www.gitjoke.com/", // 要编码的字符串
+    //     width: 50, // 定义宽度
+    //     height: 50, // 定义高度
+    //     background: "#ccc", // 背景色
+    //     foreground: "red" // 前景色
+    // });
+})
+</script>
+
+</body>
+</html>
