@@ -162,7 +162,7 @@ $(function() {
 				}
 
 				var strUpdateByIdHtml = "<a href='/add.html?objectId=" + strObjectID + "' target=_blank><b>【添加】</b></a>";
-				var strContentHtml = "<font color=" + strColor + ">" + strContent + "</font>";
+				var strContentHtml = "<span id=\"my_" + strObjectID + "\" style=\"color:" + strColor + "\">" + strContent + "</span>";
 				var strLevelHtml = "<a href='' onclick='funcSetLevel(\"" + strObjectID + "\"); return false;'><b>【标记】</b></a>";
 
 				strOneLine = strContentHtml + " " + strUpdateByIdHtml + " " + strLevelHtml + "</br></br>";
@@ -212,7 +212,12 @@ $(function() {
 					object.save(null, {
 						success: function(objectUpdate) {
 							// alert("create object success, object score:"+objectUpdate.get("level"));
-							window.location.href = window	.location.href;
+							// window.location.href = window.location.href;
+							if (objectUpdate.get("level") === "1") {
+								$("#my_" + strObjectID).css ('color', 'red');
+							} else {
+								$("#my_" + strObjectID).css ('color', 'black');
+							}
 						},
 						error: function(model, error) {
 							// alert("create object fail");
