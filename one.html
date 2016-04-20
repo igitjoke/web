@@ -116,7 +116,7 @@ $(function() {
 
 						var strNameHtml = "<b><font size=6>" + strName + "</font></b>";
 						var strContentHtml = strContent;
-						var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
+						var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\" onclick=\"funcGetNextOne(this); return false;\" >";
 						var strGodCommentHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<b><font color=red>网友评论: " + strGodComment + "</font></b>";
 						if (!strGodComment) {
 							strGodCommentHtml = "";
