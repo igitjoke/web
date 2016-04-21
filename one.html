@@ -89,6 +89,16 @@ $(function() {
 				}
 			});
 		}, 0);
+
+		setTimeout (function() {
+			$("#idRedAlert").hide();
+		}, 1000);
+		setTimeout (function() {
+			$("#idRedAlert").show();
+		}, 3000);
+		setTimeout (function() {
+			$("#idRedAlert").hide();
+		}, 9000);
 	});
 
 	// GET ONE JOKE
@@ -121,10 +131,14 @@ $(function() {
 						if (!strGodComment) {
 							strGodCommentHtml = "";
 						}
+						var strRedAlertHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<span id='idRedAlert' style='font-size:50%; color:blue; background-color:#00FF00; '>[点击图片，更换笑话]</span>";
+						if (strGodCommentHtml) {
+							strRedAlertHtml = "";
+						}
 
 						strOneLine = strNameHtml + "</br>" + 
 							strContentHtml + "</br>" + 
-							"&nbsp; &nbsp; &nbsp; &nbsp;" + strImgUrlHtml + "</br>" +
+							"&nbsp; &nbsp; &nbsp; &nbsp;" + strImgUrlHtml + "</br>" + strRedAlertHtml + "</br>" +
 							strGodCommentHtml + "</br></br>";
 						strFullPage += strOneLine;
 					}
