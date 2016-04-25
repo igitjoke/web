@@ -107,7 +107,6 @@ $(function() {
 
 	// READY
 	$(document).ready(function() {
-		$("#idDuoshuo").hide();
 		setTimeout (function () {
 			$.ajax({url:"/get1.html", 
 				success:function(msg){
@@ -138,8 +137,6 @@ $(function() {
 					$("#idStdout0").html (msg);
 				}
 			});
-
-			$("#idDuoshuo").show();
 		}, 40);								
 	});
 
@@ -205,7 +202,7 @@ $(function() {
 	</script>
 
 <!-- 多说评论框 start -->
-<div id="idDuoshuo" class="ds-thread" data-thread-key="300" data-title="笑话仓库" data-url="http://gitjoke.com/lengxiaohua.html"></div>
+<div class="ds-thread" data-thread-key="300" data-title="笑话仓库" data-url="http://gitjoke.com/lengxiaohua.html"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
