@@ -78,6 +78,7 @@ $(function() {
 	<script type="text/javascript">
 	// READY
 	$(document).ready(function() {
+		$("#idDuoshuo").hide();
 		setTimeout (function () {
 			$.ajax({url:"/getone.html", 
 				success:function(msg){
@@ -88,6 +89,7 @@ $(function() {
 
 		setTimeout (function() {
 			$("#idRedAlert").hide();
+			$("#idDuoshuo").show();
 		}, 1000);
 		setTimeout (function() {
 			$("#idRedAlert").show();
@@ -154,7 +156,7 @@ $(function() {
 	</script>
 
 <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="200" data-title="一个笑话" data-url="http://gitjoke.com/one.html"></div>
+<div id="idDuoshuo" class="ds-thread" data-thread-key="200" data-title="一个笑话" data-url="http://gitjoke.com/one.html"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

@@ -18,7 +18,7 @@ $(function() {
 </head>
 <body>
 <section class="page-header">
-	<h3 class="project-name">神奇理发室 - GIT笑话网 - gitjoke.com</h3>
+	<h3 class="project-name">理发室故事 - GIT笑话网 - gitjoke.com</h3>
 </section>
 <section class="main-content">
 	<p>
@@ -52,16 +52,17 @@ $(function() {
 
 	// READY
 	$(document).ready(function() {
+		$("#idDuoshuo").hide();
 		setTimeout (function () {
-				
-		}, 0);
+			$("#idDuoshuo").show();
+		}, 100);
 
 	});
 	</script>
 
 
 <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="400" data-title="理发室故事" data-url="http://www.gitjoke.com/story"></div>
+<div id="idDuoshuo" class="ds-thread" data-thread-key="400" data-title="理发室故事" data-url="http://www.gitjoke.com/story"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
