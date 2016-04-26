@@ -16,6 +16,7 @@
 <li>内容: <textarea name="tContent" id="idContent" rows=15 cols=58></textarea></li></br>
 <li>图片: <input type="text" name="tImage" id="idImage" size="60" /> <a href="http://cn.bing.com/images" target=_blank>必应图片搜索</a></li></br>
 <li>评论: <input type="text" name="tComment" id="idComment" size="60" /></li></br>
+<li>人物: <input type="text" name="tRole" id="idRole" size="60" /></li></br>
 <li>添加: <input type="button" name="tUpdateBtn" id="idUpdateBtn" value="Update this joke!" onclick="funcUpdate(this);" /></li></br>
 </ul>
 </form>
@@ -55,6 +56,7 @@ $(document).ready(function() {
 					$("#idContent").val (tGitJoke.get ("strContent"));
 					$("#idImage").val (tGitJoke.get ("strImgUrl"));
 					$("#idComment").val (tGitJoke.get ("strGodComment"));
+					$("#idRole").val (tGitJoke.get("strRole"));
 					$("#idTitle").focus();
 					$("#idForm1").show();
 				},
@@ -73,10 +75,12 @@ function funcUpdate() {
 	var strContent = $("#idContent").val();
 	var strImage = $("#idImage").val();
 	var strComment = $("#idComment").val();
+	var strRole = $("#idRole").val();
 	strTitle = $.trim(strTitle);
 	strContent = $.trim(strContent);
 	strImage = $.trim(strImage);
 	strComment = $.trim(strComment);
+	strRole = $.trim(strRole);
 	
 	if (strTitle === ""){
 		$("#idTitle").focus();
@@ -102,14 +106,16 @@ function funcUpdate() {
 			tGitJoke.set("strContent", strContent);
 			tGitJoke.set("strImgUrl", strImage);
 			tGitJoke.set("strGodComment", strComment);
+			tGitJoke.set("strRole", strRole);
 			
 			tGitJoke.save(null,{
 				success: function(object) {
 					$("#idStdout").html("Update OK! // the new item's object.id is " + object.id + "</br></br>" +
-						"标题:" + strTitle + "</br></br>" +
-						"内容:" + strContent + "</br></br>" + 
-						"图片:" + strImage + "</br></br>" + 
-						"评论:" + strComment + "</br></br>");
+						"标题:" + strTitle + "</br>" +
+						"内容:" + strContent + "</br>" + 
+						"图片:" + strImage + "</br>" + 
+						"评论:" + strComment + "</br>" + 
+						"人物:" + strRole + "</br>");
 					$("#idTitle").focus();
 				},
 				error: function(model, error) {
