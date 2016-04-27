@@ -8,6 +8,8 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen">
 <link rel="stylesheet" type="text/css" href="/stylesheets/github-light.css" media="screen">
 <script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bmob-min.js"></script>
+<script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
 <!-- Page Loaded //-->
 <script type="text/javascript">
 $(function() {
@@ -29,32 +31,60 @@ $(function() {
 		<a href="/wechat/index.html" target=_self>微信群聊</a> |
 		<a href="/link.html" target=_self>联系方式</a> 		
 	</p>
-	<span style="color: blue;">理发店故事 - 出场人物：</span></br>
-	<span style="background-color: yellow;"><a href="#魏少">魏少</a></span>: 理发店老板，充满正义感的一人，长相俊朗帅气，学生时代的校草，爱喝红酒，爱跑马拉松。</br>
-	<span style="background-color: yellow;"><a href="#嫂子">嫂子</a></span>: 理发店老板娘，美女，魏少姐姐的同学，不知道怎么的就变成了同学的弟媳了。</br>
-	<span style="background-color: yellow;"><a href="#小六">小六</a></span>: 魏少老同学，老朋友，有过军旅生涯，为人低调讲义气，乐观热情，又有些神秘气质。朋友们印象最深的是，他当年兴致勃勃地看别人玩了一夜的金钩钓鱼（注：一种最没趣的扑克游戏）。</br>
-	<span style="background-color: yellow;"><a href="#小栾">小栾</a></span>: 魏少老同学，老朋友，曾在某著名品牌鞋业主管销售工作，后来因为误食某神药，返老还童变成小学生，和魏少的儿子成了同班同学，又直接跳级到初中一年级。</br>
-	<span style="background-color: yellow;"><a href="#焱哥">焱哥</a></span>: 魏少老同学的同学，老朋友，著名垄断型上市公司中层管理干部，情商极高，深受女孩欢迎，但至今未婚。由于不明原因，相貌停留在二十五岁样子。养了一条叫八宝齐的狗，对，八宝齐，就是《乱码1/2》中那个喜欢偷女孩内衣的老头。</br>
-	<span style="background-color: yellow;"><a href="#志玲">志玲</a></span>: 焱哥的一位前女友，美女，说话声音像娃娃一样好听，曾是教师，与焱哥分手后时来运转，后来三十岁进入影视圈，后来一直未嫁，心里一直想着焱哥。</br>
-	<span style="background-color: yellow;"><a href="#大驰">大驰</a></span>: 魏少老同学，老朋友，某地产公司某地市总经理，曾经留学法国，很能吃苦，留学期间在葡萄园打过工，曾创办过一家建筑设计公司。</br>
-	<span style="background-color: yellow;"><a href="#小科">小科</a></span>: 魏少老同学，老朋友，屌丝程序猿，性格不成熟，情商极低，不懂得换位思考，总爱异想天开，经常做一些蠢事儿，在剧本中完全是打酱油的，可有可无一人。</br>
-	<span style="background-color: yellow;"><a href="#小龙">小龙</a></span>: 魏少老朋友，小科之兄弟，有过军旅生涯，熟读易经，易学专家，联合国人类命运研究所高级研究员。</br>
+	<span style="color: blue;">理发室故事 - 出场人物：</span></br>
 
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
+	<p id="idStdout1">人物数据加载中，请稍等......</p>
+	<p id="idStdout2"></p>
 
 	<!-- RUN //-->
 	<script>
-
 	// READY
 	$(document).ready(function() {
 		setTimeout (function () {
-
-		}, 500);
-
+			$.ajax({url:"/story/get_roles.html", 
+				success:function(msg){
+					$("#idStdout1").html (msg);
+				}
+			});
+		}, 10);
 	});
 	</script>
 
+
+	<script>
+	// GET ROLES
+	function funcShowGitJokeRoles (idStdout){
+		var TableGitJokeRols = Bmob.Object.extend ("GitJokeRoles");
+		var tQuery = new Bmob.Query (TableGitJokeRols);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.ascending("iNo");
+		tQuery.skip (0);
+		tQuery.limit (1000);
+        	tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var iNo = object.get('iNo');
+				var strName = object.get('strName');				
+				var strContent = object.get('strContent');
+
+				var strHtmlNo = "<span style='color:black; background-color:#EEEE00;'>" + iNo + "</span>";
+				var strHtmlName = "<span style='color:black; background-color:#FFFF00;'>" + strName + "</span>";
+				var strHtmlContent = "<span style='color:black;'>" + strContent + "</span>";
+
+				strOneLine = strHtmlNo + " " + strHtmlName + " " + strHtmlContent + "</br>";
+				strFullPage += strOneLine;
+			}
+			$(idStdout).html (strFullPage);			
+            	},
+            	error: function(error) {
+                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
+            	}
+        }); 
+	}
+	</script>
 
 <!-- 多说评论框 start -->
 <div class="ds-thread" data-thread-key="400" data-title="理发室故事" data-url="http://www.gitjoke.com/story"></div>
