@@ -8,6 +8,8 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen">
 <link rel="stylesheet" type="text/css" href="/stylesheets/github-light.css" media="screen">
 <script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bmob-min.js"></script>
+<script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
 <!-- Page Loaded //-->
 <script type="text/javascript">
 $(function() {
@@ -30,15 +32,12 @@ $(function() {
 		<a href="/link.html" target=_self>联系方式</a> 		
 	</p>
 
-	<h4><span style="color:green; background-color: yellow;">本栏目正在筹建中，请关注微信公众号: gitjoke 以获得最新的通知。</h4>
 
 
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
-	<p id="idStdout1"></p>
+	<p id="idStdout1">加载中，请稍等......</p>
 	<p id="idStdout2"></p>
-	<p id="idStdout3"></p>
-	<p id="idStdout4"></p>
 
 
 	<!-- RUN //-->
@@ -47,8 +46,12 @@ $(function() {
 	// READY
 	$(document).ready(function() {
 		setTimeout (function () {
-		}, 100);
-
+			$.ajax({url:"/story/get_roles.html", 
+				success:function(msg){
+					$("#idStdout1").html (msg);
+				}
+			});
+		}, 10);
 	});
 	</script>
 
@@ -56,6 +59,38 @@ $(function() {
       	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
       	<a href="http://go.microsoft.com/fwlink/?LinkId=248686&CLCID=804" target=_blank>@</a></h5>
       	</footer>
+
+	<script>
+	// GET ROLES
+	function funcShowGitJokeRoles (idStdout){
+		var TableGitJokeWechat = Bmob.Object.extend ("GitJokeWechat");
+		var tQuery = new Bmob.Query (TableGitJokeWechat);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.descending("iNo");
+		tQuery.skip (0);
+		tQuery.limit (20);
+        		tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var iNo = object.get('iNo');
+				var strUserId = object.get('userId');				
+				var strContent = object.get('content');
+
+				var strHtmlNo = "<span style='color:black; background-color:#EEEE00;'>" + iNo + "</span>";
+				var strHtmlUserId = "<span style='color:black; background-color:#FFFF00;'>" + strUserId + "</span>";
+				var strHtmlContent = "<span style='color:black;'>" + strContent + "</span>";
+
+				strOneLine = strHtmlNo + " " + strHtmlUserId + " " + strHtmlContent + "</br>";
+				strFullPage += strOneLine;
+			}
+			$(idStdout).html (strFullPage);			
+            		},
+	            	error: function(error) {
+                		$(idStdout).text ("Query failed: " + error.code + " " + error.message);
+            		}}); 
+        	}
+	</script>
 
 </section>
 </body>
