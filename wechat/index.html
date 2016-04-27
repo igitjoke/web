@@ -69,19 +69,17 @@ $(function() {
 		var strOneLine = "";
 		tQuery.descending("iNo");
 		tQuery.skip (0);
-		tQuery.limit (20);
+		tQuery.limit (100);
         		tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
 				var iNo = object.get('iNo');
-				var strUserId = object.get('userId');				
 				var strContent = object.get('content');
 
-				var strHtmlNo = "<span style='color:black; background-color:#EEEE00;'>" + iNo + "</span>";
-				var strHtmlUserId = "<span style='color:black; background-color:#FFFF00;'>" + strUserId + "</span>";
-				var strHtmlContent = "<span style='color:black;'>" + strContent + "</span>";
+				var strHtmlNo = "<span style='color:black; background-color:#CCBBAA;'>" + iNo + "</span>";
+				var strHtmlContent = "<span>" + strContent + "</span>";
 
-				strOneLine = strHtmlNo + " " + strHtmlUserId + " " + strHtmlContent + "</br>";
+				strOneLine = strHtmlNo + " " + strHtmlContent + "</br>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
