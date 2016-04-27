@@ -66,15 +66,13 @@ $(function() {
         	tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
-				var iNo = object.get('iNo');
 				var strName = object.get('strName');				
 				var strContent = object.get('strContent');
 
-				var strHtmlNo = "<span>" + iNo + "</span>";
 				var strHtmlName = "<span style='background-color:#FFFF00;'>" + strName + "</span>";
 				var strHtmlContent = "<span>" + strContent + "</span>";
 
-				strOneLine = strHtmlNo + " " + strHtmlName + " " + strHtmlContent + "</br>";
+				strOneLine = strHtmlName + " " + strHtmlContent + "</br>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
