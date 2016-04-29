@@ -2,11 +2,11 @@
 <html lang="en-us">
 <head>
 <meta charset="UTF-8">
-<title>添加/标记 - GIT笑话网 - gitjoke.com</title>
+<title>添加/删除 - GIT笑话网 - gitjoke.com</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/stylesheets/github-light.css" media="screen">
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bmob-min.js"></script>
 <script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
@@ -30,16 +30,19 @@ $(function() {
 </head>
 <body>
 <section class="page-header">
-	<h3 class="project-name">添加/标记 - GIT笑话网 - gitjoke.com</h3>
+	<h3 class="project-name">添加/删除 - GIT笑话网 - gitjoke.com</h3>
 </section>
 <section class="main-content">
 	<p>
-		<a href="/index.html" target=_blank>笑话精选</a> |
+		<a href="/index.html" target=_self>笑话精选</a> |
 		<a href="/story/index.html" target=_self>理发室故事</a> |
-		<a href="/wechat/index.html" target=_blank>微信群聊</a> |
-		<a href="/one.html" target=_blank>一个笑话</a> |
-		<span style="background-color: #00FFFF"><b><a href="" onclick="funcGetRandomOne(this); return false;">随机翻页</a></b></span> |
-		<a href="/link.html" target=_blank>联系方式</a> 
+		<span style="background-color: #CCBBAA"><b>微信群聊</b></span> |
+		<a href="/one.html" target=_self>一个笑话</a> |
+		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
+		<a href="/link.html" target=_self>联系方式</a> 
+	</p>
+	<p style="color:black; background-color: #CCBBAA;">
+玩法：在本站微信订阅号【gitjoke】里，发送文本消息，消息内容可以直接投放到本站当前【微信群聊】频道。好玩的笑话、段子，我们会定期收录到【笑话精选】栏目中。快来关注微信订阅号：gitjoke 吧！
 	</p>
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
@@ -54,10 +57,6 @@ $(function() {
 		<input type="button" id="idNextBtn" value="下一页" onclick="funcGoNextPage(this);" />
 	</form>
 
-      	<footer class="site-footer">
-      	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
-      	<a href="http://go.microsoft.com/fwlink/?LinkId=248686&CLCID=804" target=_blank>@</a></h5>
-      	</footer>
 
 	<script>
 	function funcGetUrlParamValueOf (url, name) {
@@ -72,7 +71,7 @@ $(function() {
 
 	<script>
 	var g_iTotalCount = 0;
-	var g_strHtmlFile = "/addxlevel.html";
+	var g_strHtmlFile = "/wechat/wechat_addx.html";
 
 	function funcGoHomePage (){
 		window.location.href = g_strHtmlFile;
@@ -104,6 +103,7 @@ $(function() {
 	<!-- RUN //-->
 	<script type="text/javascript">
 
+
 	var g_iPageNo = funcGetUrlParamValueOf (window.location.href, "iPageNo");
 	if (!g_iPageNo) {
 		g_iPageNo = 0;
@@ -117,78 +117,74 @@ $(function() {
 					$("#idStdout1").html (msg);
 				}
 			});
+		}, 10);
+
+		setTimeout (function () {
 			$.ajax({url:"/get2.html", 
 				success:function(msg){
 					$("#idStdout2").html (msg);
 				}
 			});
+		}, 20);
+
+		setTimeout (function () {
 			$.ajax({url:"/get3.html", 
 				success:function(msg){
 					$("#idStdout3").html (msg);
 				}
 			});
+		}, 30);
+
+		setTimeout (function () {
 			$.ajax({url:"/getcount.html",
 				success:function(msg){
 					$("#idStdout0").html (msg);
 				}
 			});
-		}, 0);
+		}, 40);								
 	});
 
 	// GET JOKES
 	function funcShowGitJokeAll (iSkipCount, iLimitCount, idStdout){
-		var TableLengXiaoHua = Bmob.Object.extend ("LengXiaoHua");
-		var tQuery = new Bmob.Query (TableLengXiaoHua);
+		var TableGitJokeWechat = Bmob.Object.extend ("GitJokeWechat");
+		var tQuery = new Bmob.Query (TableGitJokeWechat);
 		var strFullPage = "";
 		var strOneLine = "";
-		tQuery.equalTo("level", "1");
 		tQuery.descending("createdAt");
 		tQuery.skip (iSkipCount);
 		tQuery.limit (iLimitCount);
-        	tQuery.find({success: function(results) {
+        		tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
 				var strObjectID = object.id;
+				var iNo = object.get('iNo');
 				var strContent = object.get('content');
-				var strLevel = object.get('level');
-				var strColor;
-				if (i%3==0){
-					strColor = "green";
-				} else if (i%3==1) {
-					strColor = "blue";
-				} else {
-					strColor = "black";
-				}
 
-				if (strLevel === "1"){
-					strColor = "red";
-				}
+				var strUpdateByIdHtml = "<a href='/wechat/wechat_add.html?objectId=" + strObjectID + "' target=_blank><b>【添加】</b></a>";
+				var strDeleteByIdHtml = "<a href='/wechat/wechat_delete.html?objectId=" + strObjectID + "' target=_blank>【删除】</a>";
+				var strHtmlNo = "<span style='color:black; background-color:#CCBBAA;'>" + iNo + "</span> ";
+				var strContentHtml = strHtmlNo + strContent + strUpdateByIdHtml + strDeleteByIdHtml;
 
-				var strUpdateByIdHtml = "<a href='/add.html?objectId=" + strObjectID + "' target=_blank><b>【添加】</b></a>";
-				var strContentHtml = "<font color=" + strColor + ">" + strContent + "</font>";
-				var strLevelHtml = "<a href='' onclick='funcSetLevel(\"" + strObjectID + "\"); return false;'><b>【标记】</b></a>";
-
-				strOneLine = strContentHtml + " " + strUpdateByIdHtml + " " + strLevelHtml + "</br></br>";
+				strOneLine = strContentHtml + "</br></br>";
 				strFullPage += strOneLine;
 			}
-			$(idStdout).html (strFullPage);			
-            	},
-            	error: function(error) {
-                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
-            	}
-        }); 
+		$(idStdout).html (strFullPage);			
+	            	},
+	            	error: function(error) {
+	                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
+	            	}
+	        }); 
 	}
 	</script>
 
 	<script>
 	function funcGetCount() {
-		var TableLengXiaoHua = Bmob.Object.extend ("LengXiaoHua");
-		var tQuery = new Bmob.Query (TableLengXiaoHua);
-		tQuery.equalTo("level", "1");
+		var TableGitJokeWechat = Bmob.Object.extend ("GitJokeWechat");
+		var tQuery = new Bmob.Query (TableGitJokeWechat);
 		tQuery.count({
 			success: function(iTotalCount) {
 				g_iTotalCount = iTotalCount;
-				var strShowPageInfo = "已收录<font color=blue size=6>" + iTotalCount + "</font>条备选笑话，" +
+				var strShowPageInfo = "已采集<font color=blue size=6>" + iTotalCount + "</font>条微信订阅号(gitjoke)消息，" +
 					"共"+(Math.ceil(parseInt(iTotalCount,10)/18))+"页，当前第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
 				$("#idStdout0").html (strShowPageInfo);
 				$("#idStdout4").html (strShowPageInfo);
@@ -201,34 +197,11 @@ $(function() {
 	}
 	</script>
 
-	<script>
-		function funcSetLevel(strObjectID) {
-			var TableLengXiaoHua = Bmob.Object.extend("LengXiaoHua");
-			var tQuery = new Bmob.Query(TableLengXiaoHua);
-			tQuery.get(strObjectID, {
-				success: function(object) {
-					if (object.get("level") === "1") {
-						object.set("level", "");
-					} else {
-						object.set("level", "1");
-					}
-					
-					object.save(null, {
-						success: function(objectUpdate) {
-							// alert("create object success, object score:"+objectUpdate.get("level"));
-							window.location.href = window	.location.href;
-						},
-						error: function(model, error) {
-							// alert("create object fail");
-						}
-					});
-				},
-				error: function(object, error) {
-					// alert("tQuery object fail");
-				}
-			});			
-		}
-	</script>
+      	<footer class="site-footer">
+      	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
+      	<a href="http://go.microsoft.com/fwlink/?LinkId=248686&CLCID=804" target=_blank>@</a></h5>
+      	</footer>
+
 </section>
 </body>
 </html>
