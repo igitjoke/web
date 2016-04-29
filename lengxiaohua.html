@@ -156,12 +156,10 @@ $(function() {
 				var strContent = object.get('content');
 				var strLevel = object.get('level');				
 				var strColor;
-				if (i%3==0){
+				if (i%2==0){
 					strColor = "green";
-				} else if (i%3==1) {
-					strColor = "blue";
 				} else {
-					strColor = "black";
+					strColor = "blue";
 				}
 
 				if (strLevel === "1"){

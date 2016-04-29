@@ -10,6 +10,16 @@
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bmob-min.js"></script>
 <script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
+<!-- Baidu Tongji //-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
 <!-- Page Loaded //-->
 <script type="text/javascript">
 $(function() {
@@ -29,68 +39,165 @@ $(function() {
 		<span style="background-color: #CCBBAA"><b>微信群聊</b></span> |
 		<a href="/one.html" target=_self>一个笑话</a> |
 		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
-		<a href="/link.html" target=_self>联系方式</a> 		
+		<a href="/link.html" target=_self>联系方式</a> 
 	</p>
-
-
-
+	<p style="color:black; background-color: #CCBBAA;">
+玩法：在本站微信订阅号【gitjoke】里，发送文本消息，消息内容可以直接投放到本站当前【微信群聊】频道。好玩的笑话、段子，我们会定期收录到【笑话精选】栏目中。快来关注微信订阅号：gitjoke 吧！
+	</p>
 	<!-- stdout //-->
-	<p id="idStdout0" style="color:black; background-color: #CCBBAA;">
-玩法：在本站微信订阅号【gitjoke】里，发送文本消息，消息的内容可以直接显示到网站【微信群聊】频道。大家快来试试吧。看看众人智慧，能玩出什么效果！好玩的笑话、段子，我们会定期收录到【笑话精选】栏目中的哟。
-	</p>
-	<p id="idStdout1">加载中，请稍等......</p>
+	<p id="idStdout0"></p>
+	<p id="idStdout1">加载中，请稍后片刻......</p>
 	<p id="idStdout2"></p>
+	<p id="idStdout3"></p>
+	<p id="idStdout4"></p>
+	<form id="idFormNext">
+		<input type="button" id="idHomeBtn" value="第一页" onclick="funcGoHomePage(this);" />
+		&nbsp;&nbsp;
+		<input type="button" id="idNextBtn" value="上一页" onclick="funcGoPrevPage(this);" />
+		<input type="button" id="idNextBtn" value="下一页" onclick="funcGoNextPage(this);" />
+	</form>
 
+
+	<script>
+	function funcGetUrlParamValueOf (url, name) {
+		var reg = new RegExp('(\\?|&)' + name + '=([^&?]*)', 'i');
+		var arr = url.match(reg);
+		if (arr) {
+			return arr[2];
+		}
+		return null;
+	}
+	</script>
+
+	<script>
+	var g_iTotalCount = 0;
+	var g_strHtmlFile = "/wechat/index.html";
+
+	function funcGoHomePage (){
+		window.location.href = g_strHtmlFile;
+	}
+	function funcGoPrevPage (){
+		if (parseInt(g_iPageNo, 10)-1 >= 0) {
+			window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iPageNo,10)-1);
+		} else {
+			if (parseInt(g_iTotalCount,10)%18===0) {
+				window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iTotalCount/18,10)-1);
+			} else {
+				window.location.href = g_strHtmlFile + "?iPageNo=" + (Math.floor (parseInt(g_iTotalCount/18,10)));
+			}
+		}
+	}
+	function funcGoNextPage (){
+		if (18*(parseInt(g_iPageNo,10)+1) >= g_iTotalCount) {	// 每页18条笑话
+			window.location.href = g_strHtmlFile;  // 超过则返回第一页
+		} else {
+			window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iPageNo,10)+1);
+		}
+	}
+	function funcGetRandomOne() {
+		var iWhichPage = Math.floor(Math.random()*(g_iTotalCount/18));
+		window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(iWhichPage,10));
+	}
+	</script>
 
 	<!-- RUN //-->
-	<script>
+	<script type="text/javascript">
+
+
+	var g_iPageNo = funcGetUrlParamValueOf (window.location.href, "iPageNo");
+	if (!g_iPageNo) {
+		g_iPageNo = 0;
+	}
 
 	// READY
 	$(document).ready(function() {
 		setTimeout (function () {
-			$.ajax({url:"/story/get_roles.html", 
+			$.ajax({url:"/get1.html", 
 				success:function(msg){
 					$("#idStdout1").html (msg);
 				}
 			});
 		}, 10);
+
+		setTimeout (function () {
+			$.ajax({url:"/get2.html", 
+				success:function(msg){
+					$("#idStdout2").html (msg);
+				}
+			});
+		}, 20);
+
+		setTimeout (function () {
+			$.ajax({url:"/get3.html", 
+				success:function(msg){
+					$("#idStdout3").html (msg);
+				}
+			});
+		}, 30);
+
+		setTimeout (function () {
+			$.ajax({url:"/getcount.html",
+				success:function(msg){
+					$("#idStdout0").html (msg);
+				}
+			});
+		}, 40);								
 	});
-	</script>
 
-      	<footer class="site-footer">
-      	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
-      	<a href="http://go.microsoft.com/fwlink/?LinkId=248686&CLCID=804" target=_blank>@</a></h5>
-      	</footer>
-
-	<script>
-	// GET ROLES
-	function funcShowGitJokeRoles (idStdout){
+	// GET JOKES
+	function funcShowGitJokeAll (iSkipCount, iLimitCount, idStdout){
 		var TableGitJokeWechat = Bmob.Object.extend ("GitJokeWechat");
 		var tQuery = new Bmob.Query (TableGitJokeWechat);
 		var strFullPage = "";
 		var strOneLine = "";
-		tQuery.descending("iNo");
-		tQuery.skip (0);
-		tQuery.limit (100);
+		tQuery.descending("createdAt");
+		tQuery.skip (iSkipCount);
+		tQuery.limit (iLimitCount);
         		tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
 				var iNo = object.get('iNo');
 				var strContent = object.get('content');
 
-				var strHtmlNo = "<span style='color:black; background-color:#CCBBAA;'>" + iNo + "</span>";
-				var strHtmlContent = "<span>" + strContent + "</span>";
+				var strHtmlNo = "<span style='color:black; background-color:#CCBBAA;'>" + iNo + "</span> ";
+				var strContentHtml = strHtmlNo + strContent;
 
-				strOneLine = strHtmlNo + " " + strHtmlContent + "</br>";
+				strOneLine = strContentHtml + "</br></br>";
 				strFullPage += strOneLine;
 			}
-			$(idStdout).html (strFullPage);			
-            		},
+		$(idStdout).html (strFullPage);			
+	            	},
 	            	error: function(error) {
-                		$(idStdout).text ("Query failed: " + error.code + " " + error.message);
-            		}}); 
-        	}
+	                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
+	            	}
+	        }); 
+	}
 	</script>
+
+	<script>
+	function funcGetCount() {
+		var TableGitJokeWechat = Bmob.Object.extend ("GitJokeWechat");
+		var tQuery = new Bmob.Query (TableGitJokeWechat);
+		tQuery.count({
+			success: function(iTotalCount) {
+				g_iTotalCount = iTotalCount;
+				var strShowPageInfo = "已采集<font color=blue size=6>" + iTotalCount + "</font>条微信订阅号(gitjoke)消息，" +
+					"共"+(Math.ceil(parseInt(iTotalCount,10)/18))+"页，当前第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
+				$("#idStdout0").html (strShowPageInfo);
+				$("#idStdout4").html (strShowPageInfo);
+			},
+			error: function(error) {
+				$("#idStdout0").text (error.message);
+				$("#idStdout4").text (error.message);
+			}
+		}); 
+	}
+	</script>
+
+      	<footer class="site-footer">
+      	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
+      	<a href="http://go.microsoft.com/fwlink/?LinkId=248686&CLCID=804" target=_blank>@</a></h5>
+      	</footer>
 
 </section>
 </body>
