@@ -65,12 +65,12 @@ $(function() {
         		tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
-				var strObjectID = object.get('objectId');
+				var strObjectID = object.id;
 				var strName = object.get('strName');				
 				var strContent = object.get('strContent');
 
-				var strUpdateByIdHtml = "<a href='/story/write_update.html?objectId=" + strObjectID + "' target=_blank><b>【修改】</b></a>";
-				var strDeleteByIdHtml = "<a href='/story/write_delete.html?objectId=" + strObjectID + "' target=_blank>【删除】</a>";
+				var strUpdateByIdHtml = "<a href='/story/write_update_role.html?objectId=" + strObjectID + "' target=_blank><b>【修改】</b></a>";
+				var strDeleteByIdHtml = "<a href='/story/write_delete_role.html?objectId=" + strObjectID + "' target=_blank>【删除】</a>";
 				var strHtmlName = "<span style='background-color:#DDDD00;'>" + strName + "</span>";
 				var strHtmlContent = "<span>" + strContent + "</span>";
 
@@ -98,11 +98,14 @@ $(function() {
         		tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
+				var strObjectID = object.id;
 				var iNo = object.get('no');				
 				var strTitle = object.get('title');				
 
+				var strUpdateByIdHtml = "<a href='/story/write_update_chapter.html?objectId=" + strObjectID + "' target=_blank><b>【修改】</b></a>";
+				var strDeleteByIdHtml = "<a href='/story/write_delete_chapter.html?objectId=" + strObjectID + "' target=_blank>【删除】</a>";
 				var strHtmlNo = "<span style='background-color:#DDDD00;'>[" + iNo + "]</span>";
-				var strHtmlTitle = "<span>" + strTitle + "</span>";
+				var strHtmlTitle = "<span>" + strTitle + strUpdateByIdHtml +  strDeleteByIdHtml + "</span>";
 
 				strOneLine = strHtmlNo + " " + strHtmlTitle + "</br>";
 				strFullPage += strOneLine;

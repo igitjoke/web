@@ -12,7 +12,7 @@
 <p id="idStdout"></p>
 
 <form name="tFrom1" id="idForm1">
-<input type="button" name="tDeleteBtn" id="idDeleteBtn" value="Delete this joke!" onclick="funcDelete(this);" /></li></br>
+<input type="button" name="tDeleteBtn" id="idDeleteBtn" value="Delete this role!" onclick="funcDelete(this);" /></li></br>
 </form>
 
 <script>
@@ -27,7 +27,7 @@ function funcGetUrlParamValueOf (url, name) {
 </script>
 
 <script>
-// http://127.0.0.1/update.html/?objectId=6c84a335e0
+// http://127.0.0.1/story/write_delete_role.html/?objectId=6c84a335e0
 var g_strParamObjectId = funcGetUrlParamValueOf (window.location.href, "objectId");
 
 // READY
@@ -40,22 +40,18 @@ $(document).ready(function() {
 			$("#idStdout").html("<font color=red>Don't allow to visit the address (" + window.location.href + ") directly!</font>");
 
 		} else {
-		       var GitJokeAllTable = Bmob.Object.extend("GitJokeAll");
-		       var query = new Bmob.Query (GitJokeAllTable);
+		       var TableGitJokeRoles = Bmob.Object.extend("GitJokeRoles");
+		       var query = new Bmob.Query (TableGitJokeRoles);
 			query.get(g_strParamObjectId, {
 				success: function(tGitJoke) {
 					var strOutput = "";
-					strOutput += "标题: " + tGitJoke.get ("strName") + "</br></br>";
-					strOutput += "内容: " + tGitJoke.get ("strContent") + "</br></br>";
-					strOutput += "图片: " + tGitJoke.get ("strImgUrl")  + "</br></br>";
-					if (tGitJoke.get ("strGodComment")) {
-						strOutput += "评论: " + tGitJoke.get ("strGodComment") + "</br></br>";
-					}
+					strOutput += "名字: " + tGitJoke.get ("strName") + "</br></br>";
+					strOutput += "介绍: " + tGitJoke.get ("strContent") + "</br></br>";
 					$("#idStdout").html (strOutput);
 					$("#idForm1").show();
 				},
 				error: function(object, error) {
-					$("#idStdout").html("<font color=red>Cannot load the joke of " + g_strParamObjectId + "!</font>");
+					$("#idStdout").html("<font color=red>Cannot load the role of " + g_strParamObjectId + "!</font>");
 				}
 			});
 		}
@@ -65,8 +61,8 @@ $(document).ready(function() {
 
 <script>
 function funcDelete() {
-       var GitJokeAllTable = Bmob.Object.extend("GitJokeAll");
-       var query = new Bmob.Query (GitJokeAllTable);
+       var TableGitJokeRoles = Bmob.Object.extend("GitJokeRoles");
+       var query = new Bmob.Query (TableGitJokeRoles);
 	query.get(g_strParamObjectId, {
 		success: function(tGitJoke) {
 			tGitJoke.destroy({
