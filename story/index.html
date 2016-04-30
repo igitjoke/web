@@ -47,8 +47,6 @@ $(function() {
 		<input type="button" id="idNextBtn" value="下一章" onclick="funcGoNextPage(this);" />
 		&nbsp;&nbsp;
 		<input type="button" id="idEndBtn" value="最后一章" onclick="funcGoEndPage(this);" />
-		&nbsp;&nbsp;
-		<a href="#ChapterHead">跳至本章开始</a>
 	</form>
 
 	<!-- RUN //-->
@@ -162,7 +160,8 @@ $(function() {
 				strOneLine = strHtmlNo + " " + strHtmlTitle + "</br>" + strHtmlContent + "</br>";
 				strFullPage += strOneLine;
 			}
-			$("#idStdout3").html (strFullPage);			
+			$("#idStdout3").html (strFullPage);
+			location.href = "#ChapterHead";
             		},
             		error: function(error) {
                 		$("#idStdout3").text ("Query failed: " + error.code + " " + error.message);
