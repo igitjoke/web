@@ -25,19 +25,20 @@ $(function() {
 <section class="main-content">
 	<p>
 		<a href="/index.html" target=_self>笑话精选</a> |
-		<span style="background-color: #FFFF00"><b>理发室故事</b></span> |
+		<span style="background-color: #DDDD00;"><b>理发室故事</b></span> |
 		<a href="/wechat/index.html" target=_self>微信群聊</a> |
 		<a href="/one.html" target=_self>一个笑话</a> |
 		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
 		<a href="/link.html" target=_self>联系方式</a> 		
 	</p>
-	<p style="color:black; background-color: #FFFF00;">
+	<p style="color:black; background-color: #DDDD00;">
 	一早见喜鹊飞，就知道有好事！热烈欢迎小说家王先生到来，成为理发室故事第一位专栏驻站作家！
 	</p>
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
 	<p id="idStdout1">人物数据加载中，请稍等......</p>
-	<p id="idStdout2"></p>
+	<p id="idStdout2">章节目录加载中，请稍等......</p>
+	<p id="idStdout3"></p>
 
 	<!-- RUN //-->
 	<script>
@@ -47,6 +48,13 @@ $(function() {
 			$.ajax({url:"/story/get_roles.html", 
 				success:function(msg){
 					$("#idStdout1").html (msg);
+				}
+			});
+		}, 10);
+		setTimeout (function () {
+			$.ajax({url:"/story/get_story_titles.html", 
+				success:function(msg){
+					$("#idStdout2").html (msg);
 				}
 			});
 		}, 10);
@@ -64,43 +72,106 @@ $(function() {
 		tQuery.ascending("iNo");
 		tQuery.skip (0);
 		tQuery.limit (1000);
-        	tQuery.find({success: function(results) {
+        		tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
 				var strName = object.get('strName');				
 				var strContent = object.get('strContent');
 
-				var strHtmlName = "<span style='background-color:#FFFF00;'>" + strName + "</span>";
+				var strHtmlName = "<span style='background-color:#DDDD00;'>" + strName + "</span>";
 				var strHtmlContent = "<span>" + strContent + "</span>";
 
 				strOneLine = strHtmlName + " " + strHtmlContent + "</br>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
-            	},
-            	error: function(error) {
-                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
-            	}
-        }); 
+            		},
+            		error: function(error) {
+                		$(idStdout).text ("Query failed: " + error.code + " " + error.message);
+            		}
+       		}); 
 	}
 	</script>
 
-<!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="400" data-title="理发室故事" data-url="http://www.gitjoke.com/story"></div>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"gitjoke"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-</script>
-<!-- 多说公共JS代码 end -->
+	<script>
+	function funcShowGitJokeStoryTitles (idStdout) {
+		var TableGitJokeStory = Bmob.Object.extend ("GitJokeStory");
+		var tQuery = new Bmob.Query (TableGitJokeStory);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.ascending("no");
+		tQuery.skip (0);
+		tQuery.limit (1000);
+        		tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var iNo = object.get('no');				
+				var strTitle = object.get('title');				
+
+				var strHtmlNo = "<span style='background-color:#DDDD00;'>[" + iNo + "]</span>";
+				var strHtmlTitle = "<span><a href=\"\" onclick=\"funcShowStoryOf(" + iNo + "); return false;\">" + strTitle + "</a></span>";
+
+				strOneLine = strHtmlNo + " " + strHtmlTitle + "</br>";
+				strFullPage += strOneLine;
+			}
+			$(idStdout).html (strFullPage);			
+            		},
+            		error: function(error) {
+                		$(idStdout).text ("Query failed: " + error.code + " " + error.message);
+            		}
+       		}); 
+	}
+	</script>
+
+	<script>
+	function funcShowStoryOf (iNo){
+		var TableGitJokeStory = Bmob.Object.extend ("GitJokeStory");
+		var tQuery = new Bmob.Query (TableGitJokeStory);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.ascending("no");
+		tQuery.skip (iNo-1);
+		tQuery.limit (1);
+        		tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var iNo = object.get('no');
+				var strTitle = object.get('title');
+				var strContent = object.get('content');
+
+				var strHtmlNo = "<span style='background-color:#DDDD00;'>[" + iNo + "]</span>";
+				var strHtmlTitle = "<span>" + strTitle + "</span>";
+				strContent.replace ("\n", "</br>");
+				var strHtmlContent = "<span>" + strContent + "</span>";
+
+				strOneLine = strHtmlNo + " " + strHtmlTitle + "</br>" + strHtmlContent + "</br>";
+				strFullPage += strOneLine;
+			}
+			$("#idStdout3").html (strFullPage);			
+            		},
+            		error: function(error) {
+                		$("#idStdout3").text ("Query failed: " + error.code + " " + error.message);
+            		}
+       		}); 
+            	}
+	</script>
+
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="400" data-title="理发室故事" data-url="http://www.gitjoke.com/story"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"gitjoke"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+	</script>
+	<!-- 多说公共JS代码 end -->
 
       	<footer class="site-footer">
       	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
