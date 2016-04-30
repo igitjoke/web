@@ -153,12 +153,11 @@ $(function() {
 				var strTitle = object.get('title');
 				var strContent = object.get('content');
 
-				var strHtmlNo = "<span style='background-color:#DDDD00;'>[" + iNo + "]</span>";
 				var strHtmlTitle = "<span style='background-color:#DDDD00;'>" + strTitle + "</span>";
 				strContent = strContent.replace (/\n/g, "<br />");
 				var strHtmlContent = "<span>" + strContent + "</span>";
 
-				strOneLine = strHtmlNo + " " + strHtmlTitle + "</br>" + strHtmlContent + "</br>";
+				strOneLine = strHtmlTitle + "</br>" + strHtmlContent + "</br>";
 				strFullPage += strOneLine;
 			}
 			$("#idStdout3").html (strFullPage);
