@@ -41,12 +41,12 @@ $(function() {
 	<a name="ChapterHead"></a>
 	<p id="idStdout3"></p>
 	<form id="idFormNext">
-		<input type="button" id="idHomeBtn" value="第一章" onclick="funcGoHomePage(this);" />
+		<input type="button" id="idHomeBtn" value="第一章" onclick="funcGoHomeChapter(this);" />
 		&nbsp;&nbsp;
-		<input type="button" id="idNextBtn" value="上一章" onclick="funcGoPrevPage(this);" />
-		<input type="button" id="idNextBtn" value="下一章" onclick="funcGoNextPage(this);" />
+		<input type="button" id="idNextBtn" value="上一章" onclick="funcGoPrevChapter(this);" />
+		<input type="button" id="idNextBtn" value="下一章" onclick="funcGoNextChapter(this);" />
 		&nbsp;&nbsp;
-		<input type="button" id="idEndBtn" value="最后一章" onclick="funcGoEndPage(this);" />
+		<input type="button" id="idEndBtn" value="最后一章" onclick="funcGoEndChapter(this);" />
 	</form>
 
 	<!-- RUN //-->
@@ -103,7 +103,7 @@ $(function() {
 	</script>
 
 	<script>
-	var g_iTotalCount = 0;
+	var g_iChapterTotalCount = 0;
 	function funcShowGitJokeStoryTitles (idStdout) {
 		var TableGitJokeStory = Bmob.Object.extend ("GitJokeStory");
 		var tQuery = new Bmob.Query (TableGitJokeStory);
@@ -113,7 +113,7 @@ $(function() {
 		tQuery.skip (0);
 		tQuery.limit (1000);
         		tQuery.find({success: function(results) {
-        			g_iTotalCount = results.length;
+        			g_iChapterTotalCount = results.length;
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
 				var iNo = object.get('no');				
@@ -135,9 +135,9 @@ $(function() {
 	</script>
 
 	<script>
-	var g_iPageNo = 0;
+	var g_iChapterNo = 0;
 	function funcShowStoryOf (iNo){
-		g_iPageNo = iNo;
+		g_iChapterNo = iNo;
 		var TableGitJokeStory = Bmob.Object.extend ("GitJokeStory");
 		var tQuery = new Bmob.Query (TableGitJokeStory);
 		var strFullPage = "";
@@ -171,25 +171,25 @@ $(function() {
 	</script>
 
 	<script>
-	function funcGoHomePage (){
+	function funcGoHomeChapter (){
 		funcShowStoryOf (1);
 	}
-	function funcGoPrevPage (){
-		if (parseInt(g_iPageNo, 10)-1 >= 1) {
-			funcShowStoryOf (parseInt(g_iPageNo,10)-1);
+	function funcGoPrevChapter (){
+		if (parseInt(g_iChapterNo, 10)-1 >= 1) {
+			funcShowStoryOf (parseInt(g_iChapterNo,10)-1);
 		} else {
-			funcGoHomePage();
+			funcGoHomeChapter();
 		}
 	}
-	function funcGoNextPage (){
-		if ((parseInt(g_iPageNo,10)+1) > g_iTotalCount) {
-			funcGoHomePage();  // 超过则返回第一页
+	function funcGoNextChapter (){
+		if ((parseInt(g_iChapterNo,10)+1) > g_iChapterTotalCount) {
+			funcGoHomeChapter();  // 超过则返回第一页
 		} else {
-			funcShowStoryOf (parseInt(g_iPageNo,10)+1);
+			funcShowStoryOf (parseInt(g_iChapterNo,10)+1);
 		}
 	}
-	function funcGoEndPage(){
-		funcShowStoryOf (g_iTotalCount);
+	function funcGoEndChapter(){
+		funcShowStoryOf (g_iChapterTotalCount);
 	}
 	</script>
 
