@@ -2,7 +2,7 @@
 <html lang="en-us">
 <head>
 <meta charset="UTF-8">
-<title>理发室故事 - GIT笑话网 - gitjoke.com</title>
+<title>写作 - GIT笑话网 - gitjoke.com</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css" media="screen">
 <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen">
@@ -20,33 +20,14 @@ $(function() {
 </head>
 <body>
 <section class="page-header">
-	<h3 class="project-name">理发室故事 - GIT笑话网 - gitjoke.com</h3>
+	<h3 class="project-name">写作 - GIT笑话网 - gitjoke.com</h3>
 </section>
 <section class="main-content">
-	<p>
-		<a href="/index.html" target=_self>笑话精选</a> |
-		<span style="background-color: #DDDD00;"><b>理发室故事</b></span> |
-		<a href="/wechat/index.html" target=_self>微信群聊</a> |
-		<a href="/one.html" target=_self>一个笑话</a> |
-		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
-		<a href="/link.html" target=_self>联系方式</a> 		
-	</p>
-	<p style="color:black; background-color: #DDDD00;">
-	一早见喜鹊飞，就知道有好事！热烈欢迎小说家王先生到来，成为理发室故事第一位专栏驻站作家！
-	</p>
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
 	<p id="idStdout1">人物数据加载中，请稍等......</p>
 	<p id="idStdout2">章节目录加载中，请稍等......</p>
 	<p id="idStdout3"></p>
-	<form id="idFormNext">
-		<input type="button" id="idHomeBtn" value="第一章" onclick="funcGoHomePage(this);" />
-		&nbsp;&nbsp;
-		<input type="button" id="idNextBtn" value="上一章" onclick="funcGoPrevPage(this);" />
-		<input type="button" id="idNextBtn" value="下一章" onclick="funcGoNextPage(this);" />
-		&nbsp;&nbsp;
-		<input type="button" id="idEndBtn" value="最后一章" onclick="funcGoEndPage(this);" />
-	</form>
 
 	<!-- RUN //-->
 	<script>
@@ -68,7 +49,6 @@ $(function() {
 		}, 10);
 	});
 	</script>
-
 
 	<script>
 	// GET ROLES
@@ -102,7 +82,6 @@ $(function() {
 	</script>
 
 	<script>
-	var g_iTotalCount = 0;
 	function funcShowGitJokeStoryTitles (idStdout) {
 		var TableGitJokeStory = Bmob.Object.extend ("GitJokeStory");
 		var tQuery = new Bmob.Query (TableGitJokeStory);
@@ -112,7 +91,6 @@ $(function() {
 		tQuery.skip (0);
 		tQuery.limit (1000);
         		tQuery.find({success: function(results) {
-        			g_iTotalCount = results.length;
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
 				var iNo = object.get('no');				
@@ -134,9 +112,7 @@ $(function() {
 	</script>
 
 	<script>
-	var g_iPageNo = 0;
 	function funcShowStoryOf (iNo){
-		g_iPageNo = iNo;
 		var TableGitJokeStory = Bmob.Object.extend ("GitJokeStory");
 		var tQuery = new Bmob.Query (TableGitJokeStory);
 		var strFullPage = "";
@@ -167,46 +143,6 @@ $(function() {
        		}); 
             	}
 	</script>
-
-	<script>
-	function funcGoHomePage (){
-		funcShowStoryOf (1);
-	}
-	function funcGoPrevPage (){
-		if (parseInt(g_iPageNo, 10)-1 >= 1) {
-			funcShowStoryOf (parseInt(g_iPageNo,10)-1);
-		} else {
-			funcGoHomePage();
-		}
-	}
-	function funcGoNextPage (){
-		if ((parseInt(g_iPageNo,10)+1) > g_iTotalCount) {
-			funcGoHomePage();  // 超过则返回第一页
-		} else {
-			funcShowStoryOf (parseInt(g_iPageNo,10)+1);
-		}
-	}
-	function funcGoEndPage(){
-		funcShowStoryOf (g_iTotalCount);
-	}
-	</script>
-
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="400" data-title="理发室故事" data-url="http://www.gitjoke.com/story"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"gitjoke"};
-		(function() {
-			var ds = document.createElement('script');
-			ds.type = 'text/javascript';ds.async = true;
-			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-			ds.charset = 'UTF-8';
-			(document.getElementsByTagName('head')[0] 
-			 || document.getElementsByTagName('body')[0]).appendChild(ds);
-		})();
-	</script>
-	<!-- 多说公共JS代码 end -->
 
       	<footer class="site-footer">
       	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
