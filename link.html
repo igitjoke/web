@@ -8,6 +8,18 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen">
 <link rel="stylesheet" type="text/css" href="/stylesheets/github-light.css" media="screen">
 <script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bmob-min.js"></script>
+<script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
+<!-- Baidu Tongji //-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
 <!-- Page Loaded //-->
 <script type="text/javascript">
 $(function() {
@@ -27,9 +39,9 @@ $(function() {
 		<a href="/wechat/index.html" target=_self>微信群聊</a> |
 		<a href="/one.html" target=_self>一个笑话</a> |
 		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
-		<span style="background-color: #3399CC"><b>联系方式</b></span>
+		<span style="background-color: #3399CC;"><b>联系方式</b></span>
 	</p>
-
+	<p id="idPoster" style="color:black; background-color: #3399CC;"></p>
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
 	<p id="idStdout1"></p>
@@ -49,14 +61,35 @@ $(function() {
 
 	<!-- RUN //-->
 	<script>
-
 	// READY
 	$(document).ready(function() {
+		funcGetPoster (6);
 		setTimeout (function () {
 				$("#idStdout0").html ("电子邮件: i@gitjoke.com");
 		}, 0);
-
 	});
+	</script>
+
+	<script>
+	function funcGetPoster (iTitleNo) {
+		var TableGitJokePoster = Bmob.Object.extend ("GitJokePoster");
+		var tQuery = new Bmob.Query (TableGitJokePoster);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.equalTo ("iTitleNo", iTitleNo);
+        		tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var strTitle = object.get('strTitle');
+				strOneLine = strTitle;
+				strFullPage += strOneLine;
+			}
+			$("#idPoster").html (strFullPage);			
+           	 	},
+            		error: function(error) {
+                	$("#idPoster").text ("Query failed: " + error.code + " " + error.message);
+            		}}); 		
+	}
 	</script>
 
 </section>

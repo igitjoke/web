@@ -41,9 +41,7 @@ $(function() {
 		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
 		<a href="/link.html" target=_self>联系方式</a> 
 	</p>
-	<p style="color:black; background-color: #CCBBAA;">
-玩法：在本站微信订阅号【gitjoke】里，发送文本消息，消息内容可以直接投放到本站当前【微信群聊】频道。好玩的笑话、段子，我们会定期收录到【笑话精选】栏目中。快来关注微信订阅号：gitjoke 吧！
-	</p>
+	<p id="idPoster" style="color:black; background-color: #CCBBAA;"></p>
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
 	<p id="idStdout1">加载中，请稍后片刻......</p>
@@ -111,6 +109,7 @@ $(function() {
 
 	// READY
 	$(document).ready(function() {
+		funcGetPoster (3);
 		setTimeout (function () {
 			$.ajax({url:"/get1.html", 
 				success:function(msg){
@@ -193,6 +192,28 @@ $(function() {
 		}); 
 	}
 	</script>
+
+	<script>
+	function funcGetPoster (iTitleNo) {
+		var TableGitJokePoster = Bmob.Object.extend ("GitJokePoster");
+		var tQuery = new Bmob.Query (TableGitJokePoster);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.equalTo ("iTitleNo", iTitleNo);
+        		tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var strTitle = object.get('strTitle');
+				strOneLine = strTitle;
+				strFullPage += strOneLine;
+			}
+			$("#idPoster").html (strFullPage);			
+           	 	},
+            		error: function(error) {
+                	$("#idPoster").text ("Query failed: " + error.code + " " + error.message);
+            		}}); 		
+	}
+	</script>	
 
       	<footer class="site-footer">
       	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie

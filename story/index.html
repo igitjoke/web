@@ -31,9 +31,7 @@ $(function() {
 		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
 		<a href="/link.html" target=_self>联系方式</a> 		
 	</p>
-	<p style="color:black; background-color: #DDDD00;">
-	一早见喜鹊飞，就知道有好事！热烈欢迎小说家王先生到来，成为理发室故事专栏第一位驻站作家！
-	</p>
+	<p id="idPoster" style="color:black; background-color: #DDDD00;"></p>
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
 	<p id="idStdout1">人物数据加载中，请稍等......</p>
@@ -53,6 +51,7 @@ $(function() {
 	<script>
 	// READY
 	$(document).ready(function() {
+		funcGetPoster (2);
 		setTimeout (function () {
 			$.ajax({url:"/story/get_roles.html", 
 				success:function(msg){
@@ -210,6 +209,28 @@ $(function() {
 		}
 	}
 	</script>
+
+	<script>
+	function funcGetPoster (iTitleNo) {
+		var TableGitJokePoster = Bmob.Object.extend ("GitJokePoster");
+		var tQuery = new Bmob.Query (TableGitJokePoster);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.equalTo ("iTitleNo", iTitleNo);
+        		tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var strTitle = object.get('strTitle');
+				strOneLine = strTitle;
+				strFullPage += strOneLine;
+			}
+			$("#idPoster").html (strFullPage);			
+           	 	},
+            		error: function(error) {
+                	$("#idPoster").text ("Query failed: " + error.code + " " + error.message);
+            		}}); 		
+	}
+	</script>	
 
 	<!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="400" data-title="理发室故事" data-url="http://www.gitjoke.com/story"></div>

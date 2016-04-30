@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<title>海报 - GIT笑话网 - gitjoke.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/stylesheets/github-light.css" media="screen">
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bmob-min.js"></script>
+<script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
+<!-- Page Loaded //-->
+<script type="text/javascript">
+$(function() {
+	$('footer h5').css("color", "grey");
+});
+</script>
+	
+</head>
+<body>
+<section class="page-header">
+	<h3 class="project-name">海报 - GIT笑话网 - gitjoke.com</h3>
+</section>
+<section class="main-content">
+	<!-- stdout //-->
+	<p id="idStdout0"></p>
+	<p id="idStdout1">海报数据加载中，请稍等......</p>
+	<p id="idStdout3"></p>
+
+	<!-- RUN //-->
+	<script>
+	// READY
+	$(document).ready(function() {
+		setTimeout (function () {
+			$.ajax({url:"/20160222/get_posters.html", 
+				success:function(msg){
+					$("#idStdout1").html (msg);
+				}
+			});
+		}, 10);
+	});
+	</script>
+
+	<script>
+	// GET POSTERS
+	function funcShowGitJokePosters (idStdout){
+		var TableGitJokePoster = Bmob.Object.extend ("GitJokePoster");
+		var tQuery = new Bmob.Query (TableGitJokePoster);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.ascending("iTitleNo");
+		tQuery.skip (0);
+		tQuery.limit (100);
+        		tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var strObjectID = object.id;
+				var iTitleNo = object.get('iTitleNo');				
+				var strName = object.get('strName');				
+				var strTitle = object.get('strTitle');
+
+				var strUpdateByIdHtml = "<a href='/20160222/poster_update.html?objectId=" + strObjectID + "' target=_blank><b>【修改】</b></a>";
+				var strHtmlName = "<span style='background-color:#DDDD00;'>" + iTitleNo + " " + strName + "</span>";
+				var strHtmlContent = "<span>" + strTitle + "</span>";
+
+				strOneLine = strHtmlName + " " + strHtmlContent + strUpdateByIdHtml +  "</br>";
+				strFullPage += strOneLine;
+			}
+			$(idStdout).html (strFullPage);
+            		},
+            		error: function(error) {
+                		$(idStdout).text ("Query failed: " + error.code + " " + error.message);
+            		}}); 
+	}
+	</script>
+
+      	<footer class="site-footer">
+      	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
+      	<a href="http://go.microsoft.com/fwlink/?LinkId=248686&CLCID=804" target=_blank>@</a></h5>
+      	</footer>
+
+</section>
+</body>
+</html>

@@ -65,9 +65,7 @@ $(function() {
 		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
 		<a href="/link.html" target=_self>联系方式</a> 
 	</p>
-	<p style="color:black; background-color: #AAFFBB;">
-	随机换一个新笑话有4种操作方式：【1】点击图片【2】点击“再来一个”【3】按F5键【4】按Ctrl+R键。
-	</p>	
+	<p id="idPoster" style="color:black; background-color: #AAFFBB;"></p>	
 	<!-- stdout //-->
 	<p id="idStdout1">加载中，请稍后片刻......</p>
 
@@ -82,6 +80,7 @@ $(function() {
 	<script type="text/javascript">
 	// READY
 	$(document).ready(function() {
+		funcGetPoster (4);
 		setTimeout (function () {
 			$.ajax({url:"/getone.html", 
 				success:function(msg){
@@ -157,22 +156,44 @@ $(function() {
 	}
 	</script>
 
-<!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="200" data-title="一个笑话" data-url="http://gitjoke.com/one.html"></div>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"gitjoke"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-</script>
-<!-- 多说公共JS代码 end -->
+	<script>
+	function funcGetPoster (iTitleNo) {
+		var TableGitJokePoster = Bmob.Object.extend ("GitJokePoster");
+		var tQuery = new Bmob.Query (TableGitJokePoster);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.equalTo ("iTitleNo", iTitleNo);
+        		tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var strTitle = object.get('strTitle');
+				strOneLine = strTitle;
+				strFullPage += strOneLine;
+			}
+			$("#idPoster").html (strFullPage);			
+           	 	},
+            		error: function(error) {
+                	$("#idPoster").text ("Query failed: " + error.code + " " + error.message);
+            		}}); 		
+	}
+	</script>	
+
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="200" data-title="一个笑话" data-url="http://gitjoke.com/one.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"gitjoke"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+	</script>
+	<!-- 多说公共JS代码 end -->
 
       	<footer class="site-footer">
       	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie

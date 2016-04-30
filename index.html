@@ -65,9 +65,7 @@ $(function() {
 		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
 		<a href="/link.html" target=_self>联系方式</a> 
 	</p>
-	<p style="color:black; background-color: #FFBBAA;">
-	公告：GIT笑话网创始人团队，缺少一位资深媒体编辑，有多年相关工作经验、性格乐观开朗、目光长远、不计创业初期薪酬待遇多少者，请联系<a href="" onclick="alert('请进入【联系方式】，通过电子邮件交换微信号联系。'); return false;">我们</a>！</br>
-	</p>	
+	<p id="idPoster" style="color:black; background-color: #FFBBAA;"></p>	
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
 	<p id="idStdout1">加载中，请稍后片刻......</p>
@@ -133,7 +131,7 @@ $(function() {
 
 	// READY
 	$(document).ready(function() {
-		
+		funcGetPoster (1);
 		setTimeout (function () {
 			$.ajax({url:"/get1.html", 
 				success:function(msg){
@@ -232,6 +230,28 @@ $(function() {
 				$("#idStdout4").text (error.message);
 			}
 		}); 
+	}
+	</script>
+
+	<script>
+	function funcGetPoster (iTitleNo) {
+		var TableGitJokePoster = Bmob.Object.extend ("GitJokePoster");
+		var tQuery = new Bmob.Query (TableGitJokePoster);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.equalTo ("iTitleNo", iTitleNo);
+        		tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var strTitle = object.get('strTitle');
+				strOneLine = strTitle;
+				strFullPage += strOneLine;
+			}
+			$("#idPoster").html (strFullPage);			
+           	 	},
+            		error: function(error) {
+                	$("#idPoster").text ("Query failed: " + error.code + " " + error.message);
+            		}}); 		
 	}
 	</script>
 
