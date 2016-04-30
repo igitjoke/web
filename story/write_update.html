@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<title>Update Role - gitjoke.com</title>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bmob-min.js"></script>
+<script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
+</head>
+<body>
+
+<form name="tFrom1" id="idForm1">
+<ul>
+<li>名字: <input type="text" name="tTitle" id="idTitle" size="60" autofocus /></li></br>
+<li>介绍: <textarea name="tContent" id="idContent" rows=15 cols=58></textarea></li></br>
+<li>添加: <input type="button" name="tUpdateBtn" id="idUpdateBtn" value="Update this role!" onclick="funcUpdate(this);" /></li></br>
+</ul>
+</form>
+
+<p id="idStdout"></p>
+
+<script>
+function funcGetUrlParamValueOf (url, name) {
+	var reg = new RegExp('(\\?|&)' + name + '=([^&?]*)', 'i');
+	var arr = url.match(reg);
+	if (arr) {
+		return arr[2];
+	}
+	return null;
+}
+</script>
+
+<script>
+// http://127.0.0.1/story/write_update.html/?objectId=6c84a335e0
+var g_strParamObjectId = funcGetUrlParamValueOf (window.location.href, "objectId");
+
+// READY
+$(document).ready(function() {
+
+	$("#idForm1").hide();
+
+	setTimeout (function () {
+		if (!g_strParamObjectId){
+			$("#idStdout").html("<font color=red>Don't allow to visit the address (" + window.location.href + ") directly!</font>");
+
+		} else {
+		       var TableGitJokeRoles = Bmob.Object.extend("GitJokeRoles");
+		       var query = new Bmob.Query (TableGitJokeRoles);
+			query.get(g_strParamObjectId, {
+				success: function(tGitJoke) {
+					$("#idTitle").val (tGitJoke.get ("strName"));
+					$("#idContent").val (tGitJoke.get ("strContent"));
+					$("#idTitle").focus();
+					$("#idForm1").show();
+				},
+				error: function(object, error) {
+					$("#idStdout").html("<font color=red>Cannot load the joke of " + g_strParamObjectId + "!</font>");
+				}
+			});
+		}
+	}, 0);
+});
+</script>
+
+<script>
+function funcUpdate() {
+	var strTitle = $("#idTitle").val();
+	var strContent = $("#idContent").val();
+	strTitle = $.trim(strTitle);
+	strContent = $.trim(strContent);
+	
+	if (strTitle === ""){
+		$("#idTitle").focus();
+		return;
+	} 
+
+	if (strContent === "") {
+		$("#idContent").focus();
+		return;
+	}
+
+       var TableGitJokeRoles = Bmob.Object.extend("GitJokeRoles");
+       var query = new Bmob.Query (TableGitJokeRoles);
+	query.get(g_strParamObjectId, {
+		success: function(tGitJoke) {
+
+		       	tGitJoke.set("strName", strTitle);
+			tGitJoke.set("strContent", strContent);
+			
+			tGitJoke.save(null,{
+				success: function(object) {
+					$("#idStdout").html("Update role OK! // the new item's object.id is " + object.id + "</br></br>" +
+						"标题:" + strTitle + "</br>" +
+						"内容:" + strContent + "</br>");
+					$("#idTitle").focus();
+				},
+				error: function(model, error) {
+					$("#idStdout").html("Update role failed! // error message is " + error.message);
+					$("#idTitle").focus();
+				}
+			});
+		},
+		error: function(object, error) {
+			$("#idStdout").html("Update object (" + object.id + ") failed! // error message is " + error.message);
+			$("#idTitle").focus();
+		}
+	});
+}
+</script>
+</body>
+</html>

@@ -26,7 +26,9 @@ $(function() {
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
 	<p id="idStdout1">人物数据加载中，请稍等......</p>
+	<p id="idStdout1Add"><a href="/story/write_add_role.html" target=_blank>新增人物</a></p>
 	<p id="idStdout2">章节目录加载中，请稍等......</p>
+	<p id="idStdout2Add"><a href="/story/write_add_chapter.html" target=_blank>新增章节</a></p>
 	<p id="idStdout3"></p>
 
 	<!-- RUN //-->
@@ -63,13 +65,16 @@ $(function() {
         		tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
+				var strObjectID = object.get('objectId');
 				var strName = object.get('strName');				
 				var strContent = object.get('strContent');
 
+				var strUpdateByIdHtml = "<a href='/story/write_update.html?objectId=" + strObjectID + "' target=_blank><b>【修改】</b></a>";
+				var strDeleteByIdHtml = "<a href='/story/write_delete.html?objectId=" + strObjectID + "' target=_blank>【删除】</a>";
 				var strHtmlName = "<span style='background-color:#DDDD00;'>" + strName + "</span>";
 				var strHtmlContent = "<span>" + strContent + "</span>";
 
-				strOneLine = strHtmlName + " " + strHtmlContent + "</br>";
+				strOneLine = strHtmlName + " " + strHtmlContent + strUpdateByIdHtml +  strDeleteByIdHtml + "</br>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
@@ -97,7 +102,7 @@ $(function() {
 				var strTitle = object.get('title');				
 
 				var strHtmlNo = "<span style='background-color:#DDDD00;'>[" + iNo + "]</span>";
-				var strHtmlTitle = "<span><a href=\"\" onclick=\"funcShowStoryOf(" + iNo + "); return false;\">" + strTitle + "</a></span>";
+				var strHtmlTitle = "<span>" + strTitle + "</span>";
 
 				strOneLine = strHtmlNo + " " + strHtmlTitle + "</br>";
 				strFullPage += strOneLine;
@@ -109,39 +114,6 @@ $(function() {
             		}
        		}); 
 	}
-	</script>
-
-	<script>
-	function funcShowStoryOf (iNo){
-		var TableGitJokeStory = Bmob.Object.extend ("GitJokeStory");
-		var tQuery = new Bmob.Query (TableGitJokeStory);
-		var strFullPage = "";
-		var strOneLine = "";
-		tQuery.ascending("no");
-		tQuery.skip (iNo-1);
-		tQuery.limit (1);
-        		tQuery.find({success: function(results) {
-			for (var i = 0; i < results.length; i++) {
-				var object = results[i];
-				var iNo = object.get('no');
-				var strTitle = object.get('title');
-				var strContent = object.get('content');
-
-				var strHtmlNo = "<span style='background-color:#DDDD00;'>[" + iNo + "]</span>";
-				var strHtmlTitle = "<span style='background-color:#DDDD00;'>" + strTitle + "</span>";
-				strContent = strContent.replace (/\n/g, "<br />");
-				var strHtmlContent = "<span>" + strContent + "</span>";
-
-				strOneLine = strHtmlNo + " " + strHtmlTitle + "</br>" + strHtmlContent + "</br>";
-				strFullPage += strOneLine;
-			}
-			$("#idStdout3").html (strFullPage);			
-            		},
-            		error: function(error) {
-                		$("#idStdout3").text ("Query failed: " + error.code + " " + error.message);
-            		}
-       		}); 
-            	}
 	</script>
 
       	<footer class="site-footer">

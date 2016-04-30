@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<title>Add New Role - gitjoke.com</title>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bmob-min.js"></script>
+<script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
+</head>
+<body>
+<form name="tFrom1" id="idForm1">
+<ul>
+<li>名字: <input type="text" name="tTitle" id="idTitle" size="60" autofocus /></li></br>
+<li>介绍: <textarea name="tContent" id="idContent" rows=15 cols=60></textarea></li></br>
+<li>添加: <input type="button" name="tAddBtn" id="idAddBtn" value="Add a new role!" onclick="funcAddNew(this);" /></li></br>
+</ul>
+</form>
+<p id="idStdout"></p>
+
+<script>
+// READY
+$(document).ready(function() {
+	$("#idTitle").focus();
+	setTimeout (function () {
+	}, 0);
+});
+</script>
+
+<script>
+function funcAddNew() {
+	var strTitle = $("#idTitle").val();
+	var strContent = $("#idContent").val();
+	strTitle = $.trim(strTitle);
+	strContent = $.trim(strContent);
+	
+	if (strTitle === ""){
+		$("#idTitle").focus();
+		return;
+	} 
+
+	if (strContent === "") {
+		$("#idContent").focus();
+		return;
+	}
+
+       	var TableGitJokeRoles = Bmob.Object.extend("GitJokeRoles");
+       	var tRoles = new TableGitJokeRoles();
+
+       	tRoles.set("strName", strTitle);
+	tRoles.set("strContent", strContent);
+	
+	tRoles.save(null,{
+		success: function(object) {
+			$("#idStdout").html("Added OK! // the new item's object.id is " + object.id + "</br></br>" +
+				"名字:" + strTitle + "</br></br>" +
+				"介绍:" + strContent + "</br></br>");
+			$("#idTitle").val("");
+			$("#idContent").val("");
+			$("#idTitle").focus();
+		},
+		error: function(model, error) {
+			$("#idStdout").html("Added failed! // error message is " + error.message);
+			$("#idTitle").focus();
+		}
+	});
+		
+}
+</script>
+</body>
+</html>
+

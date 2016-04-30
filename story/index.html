@@ -32,7 +32,7 @@ $(function() {
 		<a href="/link.html" target=_self>联系方式</a> 		
 	</p>
 	<p style="color:black; background-color: #DDDD00;">
-	一早见喜鹊飞，就知道有好事！热烈欢迎小说家王先生到来，成为理发室故事第一位专栏驻站作家！
+	一早见喜鹊飞，就知道有好事！热烈欢迎小说家王先生到来，成为理发室故事专栏第一位驻站作家！
 	</p>
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
@@ -143,8 +143,7 @@ $(function() {
 		var strFullPage = "";
 		var strOneLine = "";
 		tQuery.ascending("no");
-		tQuery.skip (iNo-1);
-		tQuery.limit (1);
+		tQuery.equalTo("no", iNo);
         		tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
