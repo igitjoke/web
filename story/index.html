@@ -103,6 +103,7 @@ $(function() {
 	</script>
 
 	<script>
+	var g_tChapterNoAry = [];
 	var g_iChapterTotalCount = 0;
 	function funcShowGitJokeStoryTitles (idStdout) {
 		var TableGitJokeStory = Bmob.Object.extend ("GitJokeStory");
@@ -116,16 +117,17 @@ $(function() {
         			g_iChapterTotalCount = results.length;
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
-				var iNo = object.get('no');				
-				var strTitle = object.get('title');				
+				var iNo = object.get('no');
+				g_tChapterNoAry.push (iNo);
+				var strTitle = object.get('title');
 
-				var strHtmlNo = "<span style='background-color:#DDDD00;'>[" + iNo + "]</span>";
 				var strHtmlTitle = "<span><a href=\"#ChapterHead\" onclick=\"funcShowStoryOf(" + iNo + "); return true;\">" + strTitle + "</a></span>";
 
-				strOneLine = strHtmlNo + " " + strHtmlTitle + "</br>";
+				strOneLine = strHtmlTitle + "</br>";
 				strFullPage += strOneLine;
 			}
-			$(idStdout).html (strFullPage);			
+			$(idStdout).html (strFullPage);	
+			console.log (g_tChapterNoAry);
             		},
             		error: function(error) {
                 		$(idStdout).text ("Query failed: " + error.code + " " + error.message);
@@ -171,24 +173,42 @@ $(function() {
 
 	<script>
 	function funcGoHomeChapter (){
-		funcShowStoryOf (1);
+		funcShowStoryOf (g_tChapterNoAry[0]);
 	}
 	function funcGoPrevChapter (){
-		if (parseInt(g_iChapterNo, 10)-1 >= 1) {
-			funcShowStoryOf (parseInt(g_iChapterNo,10)-1);
-		} else {
-			funcGoHomeChapter();
+		if (g_tChapterNoAry.length <= 1){
+			return;
+		}
+
+		for (var i=0; i<g_tChapterNoAry.length; i++) {
+			if (g_iChapterNo === g_tChapterNoAry[i]){
+				break;
+			}
+		}
+
+		if (i> 0 && i<g_tChapterNoAry.length)	{
+			funcShowStoryOf (g_tChapterNoAry[i-1]);
 		}
 	}
 	function funcGoNextChapter (){
-		if ((parseInt(g_iChapterNo,10)+1) > g_iChapterTotalCount) {
-			funcGoHomeChapter();  // 超过则返回第一页
-		} else {
-			funcShowStoryOf (parseInt(g_iChapterNo,10)+1);
+		if (g_tChapterNoAry.length <= 1){
+			return;
+		}
+
+		for (var i=0; i<g_tChapterNoAry.length; i++) {
+			if (g_iChapterNo === g_tChapterNoAry[i]){
+				break;
+			}
+		}
+
+		if (i<g_tChapterNoAry.length-1) {
+			funcShowStoryOf (g_tChapterNoAry[i+1]);
 		}
 	}
 	function funcGoEndChapter(){
-		funcShowStoryOf (g_iChapterTotalCount);
+		if (g_iChapterTotalCount > 1) {
+			funcShowStoryOf (g_tChapterNoAry[g_iChapterTotalCount-1]);
+		}
 	}
 	</script>
 
