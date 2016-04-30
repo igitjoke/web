@@ -38,6 +38,7 @@ $(function() {
 	<p id="idStdout0"></p>
 	<p id="idStdout1">人物数据加载中，请稍等......</p>
 	<p id="idStdout2">章节目录加载中，请稍等......</p>
+	<a name="ChapterHead"></a>
 	<p id="idStdout3"></p>
 	<form id="idFormNext">
 		<input type="button" id="idHomeBtn" value="第一章" onclick="funcGoHomePage(this);" />
@@ -119,7 +120,7 @@ $(function() {
 				var strTitle = object.get('title');				
 
 				var strHtmlNo = "<span style='background-color:#DDDD00;'>[" + iNo + "]</span>";
-				var strHtmlTitle = "<span><a href=\"\" onclick=\"funcShowStoryOf(" + iNo + "); return false;\">" + strTitle + "</a></span>";
+				var strHtmlTitle = "<span><a href=\"#ChapterHead\" onclick=\"funcShowStoryOf(" + iNo + "); return true;\">" + strTitle + "</a></span>";
 
 				strOneLine = strHtmlNo + " " + strHtmlTitle + "</br>";
 				strFullPage += strOneLine;
