@@ -124,7 +124,7 @@ $(function() {
 						var strGodComment = object.get('strGodComment');
 
 						var strNameHtml = "<b><font size=6>" + strName + "</font></b>";
-						var strContentHtml = strContent;
+						var strContentHtml = strContent.replace (/\n/g, "<br />");
 						var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\" onclick=\"funcGetNextOne(this); return false;\" >";
 						var strGodCommentHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<b><font color=red>网友评论: " + strGodComment + "</font></b>";
 						if (!strGodComment) {
@@ -176,24 +176,7 @@ $(function() {
                 	$("#idPoster").text ("Query failed: " + error.code + " " + error.message);
             		}}); 		
 	}
-	</script>	
-
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="200" data-title="一个笑话" data-url="http://gitjoke.com/one.html"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"gitjoke"};
-		(function() {
-			var ds = document.createElement('script');
-			ds.type = 'text/javascript';ds.async = true;
-			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-			ds.charset = 'UTF-8';
-			(document.getElementsByTagName('head')[0] 
-			 || document.getElementsByTagName('body')[0]).appendChild(ds);
-		})();
 	</script>
-	<!-- 多说公共JS代码 end -->
 
       	<footer class="site-footer">
       	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie

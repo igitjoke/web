@@ -185,7 +185,7 @@ $(function() {
 				var strUpdateByIdHtml = "<a href='/update.html?objectId=" + strObjectID + "' target=_blank><b>【修改】</b></a>";
 				var strDeleteByIdHtml = "<a href='/delete.html?objectId=" + strObjectID + "' target=_blank>【删除】</a>";
 				var strNameHtml = "<b><font size=6 color=" + strColor + ">" + strName + "</font></b>";
-				var strContentHtml = strContent;
+				var strContentHtml = strContent.replace (/\n/g, "<br />");
 				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
 				var strGodCommentHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<b><font color=red>网友评论: " + strGodComment + "</font></b>";
 				if (!strGodComment) {
