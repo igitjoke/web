@@ -172,6 +172,7 @@ $(function() {
 				var strContent = object.get('strContent');
 				var strImgUrl = object.get('strImgUrl');
 				var strGodComment = object.get('strGodComment');
+				var strRole = object.get('strRole');
 				var strColor;
 				if (i%6==0||i%6==1){
 					strColor = "green";
@@ -190,11 +191,16 @@ $(function() {
 				if (!strGodComment) {
 					strGodCommentHtml = "";
 				}
+				var strRoleHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<b><span style=\"background-color:yellow;\">第一主角: " + strRole + "</span></b>";
+				if (!strRole) {
+					strRoleHtml = "";
+				}
 
 				strOneLine = strNameHtml + " " + strUpdateByIdHtml + " " + strDeleteByIdHtml + "</br>" + 
 					strContentHtml + "</br>" + 
 					"&nbsp; &nbsp; &nbsp; &nbsp;" + strImgUrlHtml + " " + strImgUrl.length + "</br>" +
-					strGodCommentHtml + "</br></br>";
+					strGodCommentHtml + "</br>" + 
+					strRoleHtml + "</br></br>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
