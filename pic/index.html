@@ -55,14 +55,6 @@ function changeImg(objImg)
 	<h3 class="project-name">微信传图 - GIT笑话网 - gitjoke.com</h3>
 </section>
 <section class="main-content">
-	<p>
-		<a href="/index.html" target=_self>笑话精选</a> |
-		<a href="/story/index.html" target=_self>理发室故事</a> |
-		<a href="/wechat/index.html" target=_self>微信群聊</a> |
-		<a href="/one.html" target=_self>一个笑话</a> |
-		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
-		<a href="/link.html" target=_self>联系方式</a> 
-	</p>
 	<!-- stdout //-->
 	<p id="idStdout0"></p>
 	<p id="idStdout1">加载中，请稍后片刻......</p>
@@ -163,10 +155,36 @@ function changeImg(objImg)
 		}, 40);								
 	});
 
+	// CONFIRM IMAGE
+	function funcConfirmImg (that) {
+	      	// Bmob.Image.thumbnail({"image":strImgUrl,"mode":0,"quality":100,"width":200}).then(function(obj) {
+	      	// Bmob.Image.thumbnail({"image":strImgUrl,"mode":1,"quality":100,"height":200}).then(function(obj) {
+	      	// Bmob.Image.thumbnail({"image":strImgUrl,"mode":2,"quality":100,"longEdge":200}).then(function(obj) {
+	      	// Bmob.Image.thumbnail({"image":strImgUrl,"mode":3,"quality":100,"shortEdge":200}).then(function(obj) {
+	      	// Bmob.Image.thumbnail({"image":strImgUrl,"mode":5,"quality":100,"width":200,"height":200}).then(function(obj) {
+	      	Bmob.Image.thumbnail({"image":that.src,"mode":4,"quality":100,"width":400,"height":400}).then(function(obj) {
+	        		if (obj.url)
+	        		{ // CONVERT OK
+				var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
+				var tQuery = new Bmob.Query (TableGitJokeWechatPic);
+		        		tQuery.get(that.name, {success: function(theOne) {
+		        			theOne.set('BmobPicUrl', "http://file.bmob.cn/" + obj.url);
+		        			theOne.save ();
+			            	},
+			            	error: function(error) {
+			                	alert ("Query failed: " + error.code + " " + error.message);
+			            	}
+			        }); 
+		        	}
+	      	}).then(null, function (err){
+	       		alert ("err.code:" + err.code + " err.message:"+err.message);
+	      	});
+	}
+
 	// GET JOKES
 	function funcShowGitJokeAll (iSkipCount, iLimitCount, idStdout){
-		var TableGitJokeWechat = Bmob.Object.extend ("GitJokeWechatPic");
-		var tQuery = new Bmob.Query (TableGitJokeWechat);
+		var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
+		var tQuery = new Bmob.Query (TableGitJokeWechatPic);
 		var strFullPage = "";
 		var strOneLine = "";
 		tQuery.descending("createdAt");
@@ -180,12 +198,12 @@ function changeImg(objImg)
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-				var strPicUrlHtml = "<img src=\"" + strPicUrl+ "\" onload=\"changeImg(this);\"/>";
+				var strPicUrlHtml = "<img name=\""+object.id+"\" src=\"" + strPicUrl+ "\" onload=\"changeImg(this);\" onclick=\"funcConfirmImg(this);\" />";
 
 				strOneLine = "<br><br>" + strPicUrlHtml + "<br><br>";
 				strFullPage += strOneLine;
 			}
-		$(idStdout).html (strFullPage);			
+			$(idStdout).html (strFullPage);			
 	            	},
 	            	error: function(error) {
 	                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
@@ -202,7 +220,7 @@ function changeImg(objImg)
 		tQuery.count({
 			success: function(iTotalCount) {
 				g_iTotalCount = iTotalCount;
-				var strShowPageInfo = "已记录<font color=blue size=6>" + iTotalCount + "</font>条微信订阅号(gitjoke)上传来的图片，" +
+				var strShowPageInfo = "微信订阅号(gitjoke)临时图片共<font color=blue size=6>" + iTotalCount + "</font>张，" +
 					"共"+(Math.ceil(parseInt(iTotalCount,10)/18))+"页，当前第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
 				$("#idStdout0").html (strShowPageInfo);
 				$("#idStdout4").html (strShowPageInfo);
