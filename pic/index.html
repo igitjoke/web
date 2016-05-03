@@ -157,11 +157,6 @@ function changeImg(objImg)
 
 	// CONFIRM IMAGE
 	function funcConfirmImg (that) {
-	      	// Bmob.Image.thumbnail({"image":strImgUrl,"mode":0,"quality":100,"width":200}).then(function(obj) {
-	      	// Bmob.Image.thumbnail({"image":strImgUrl,"mode":1,"quality":100,"height":200}).then(function(obj) {
-	      	// Bmob.Image.thumbnail({"image":strImgUrl,"mode":2,"quality":100,"longEdge":200}).then(function(obj) {
-	      	// Bmob.Image.thumbnail({"image":strImgUrl,"mode":3,"quality":100,"shortEdge":200}).then(function(obj) {
-	      	// Bmob.Image.thumbnail({"image":strImgUrl,"mode":5,"quality":100,"width":200,"height":200}).then(function(obj) {
 	      	Bmob.Image.thumbnail({"image":that.src,"mode":4,"quality":100,"width":400,"height":400}).then(function(obj) {
 	        		if (obj.url)
 	        		{ // CONVERT OK
@@ -170,8 +165,6 @@ function changeImg(objImg)
 		        		tQuery.get(that.name, {success: function(theOne) {
 		        			theOne.set('BmobPicUrl', "http://file.bmob.cn/" + obj.url);
 		        			theOne.save ();
-
-		        			// 在微信中无法重定向
 		        			window.location.href = g_strHtmlFile;
 			            	},
 			            	error: function(error) {
