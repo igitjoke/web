@@ -27,30 +27,28 @@ $(function() {
 });
 </script>
 <script type="text/javascript">
-</script>
-	<script type="text/javascript">
-	function changeImg(objImg)
-	{
-		var most = 240;
-		if (objImg.width > objImg.height) {
-			if(objImg.width > most) {
-				var scaling = most/objImg.width;    
-				objImg.width = objImg.width*scaling;
-			} else if (objImg.width < most) {
-				var scaling = most/objImg.width;
-				objImg.width = objImg.width*scaling;			
-			}
-		} else {
-			if(objImg.height > most) {
-				var scaling = most/objImg.height;    
-				objImg.height = objImg.height*scaling;
-			} else if (objImg.height < most) {
-				var scaling = most/objImg.height;
-				objImg.height = objImg.height*scaling;			
-			}
+function changeImg(objImg)
+{
+	var most = 240;
+	if (objImg.width > objImg.height) {
+		if(objImg.width > most) {
+			var scaling = most/objImg.width;    
+			objImg.width = objImg.width*scaling;
+		} else if (objImg.width < most) {
+			var scaling = most/objImg.width;
+			objImg.width = objImg.width*scaling;			
+		}
+	} else {
+		if(objImg.height > most) {
+			var scaling = most/objImg.height;    
+			objImg.height = objImg.height*scaling;
+		} else if (objImg.height < most) {
+			var scaling = most/objImg.height;
+			objImg.height = objImg.height*scaling;			
 		}
 	}
-	</script>
+}
+</script>
 </head>
 <body>
 <section class="page-header">

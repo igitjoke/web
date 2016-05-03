@@ -65,7 +65,7 @@ $(function() {
 		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
 		<a href="/link.html" target=_self>联系方式</a> 
 	</p>
-	<p id="idPoster" style="color:black; background-color: #AAFFBB;"></p>	
+	<p id="idPoster" style="color:black; background-color: #AAFFBB;"></p>
 	<!-- stdout //-->
 	<p id="idStdout1">加载中，请稍后片刻......</p>
 
@@ -88,7 +88,6 @@ $(function() {
 				}
 			});
 		}, 0);
-
 		setTimeout (function() {
 			$("#idRedAlert").hide();
 		}, 1000);
@@ -115,7 +114,7 @@ $(function() {
 				console.log (iTotalCount, iWhichOne);
 				tQuery.skip (iWhichOne);
 				tQuery.limit (1);
-		        	tQuery.find({success: function(results) {
+		        		tQuery.find({success: function(results) {
 					for (var i = 0; i < results.length; i++) {
 						var object = results[i];
 						var strName = object.get('strName');
@@ -142,12 +141,10 @@ $(function() {
 						strFullPage += strOneLine;
 					}
 					$(idStdout).html (strFullPage);			
-		            	},
-		            	error: function(error) {
-		                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
-		            	}
-		            });
-
+		            		},
+		            		error: function(error) {
+		                		$(idStdout).text ("Query failed: " + error.code + " " + error.message);
+		            		}});
 			},
 			error: function(error) {
 				return 0;
