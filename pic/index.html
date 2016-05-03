@@ -167,17 +167,22 @@ function changeImg(objImg)
 	        		{ // CONVERT OK
 				var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
 				var tQuery = new Bmob.Query (TableGitJokeWechatPic);
-		        		tQuery.get(that.name, {success: function(theOne) {
+		        		tQuery.get(that.id, {success: function(theOne) {
 		        			theOne.set('BmobPicUrl', "http://file.bmob.cn/" + obj.url);
 		        			theOne.save ();
+
+		        			// 在微信中无法重定向
+		        			window.location.href = g_strHtmlFile;
+
+		        			$("#"+that.id).hide();
 			            	},
 			            	error: function(error) {
-			                	alert ("Query failed: " + error.code + " " + error.message);
+			                	// alert ("Query failed: " + error.code + " " + error.message);
 			            	}
 			        }); 
 		        	}
 	      	}).then(null, function (err){
-	       		alert ("err.code:" + err.code + " err.message:"+err.message);
+	       		// alert ("err.code:" + err.code + " err.message:"+err.message);
 	      	});
 	}
 
@@ -198,7 +203,7 @@ function changeImg(objImg)
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-				var strPicUrlHtml = "<img name=\""+object.id+"\" src=\"" + strPicUrl+ "\" onload=\"changeImg(this);\" onclick=\"funcConfirmImg(this);\" />";
+				var strPicUrlHtml = "<img id=\""+object.id+"\" src=\"" + strPicUrl+ "\" onload=\"changeImg(this);\" onclick=\"funcConfirmImg(this);\" />";
 
 				strOneLine = "<br><br>" + strPicUrlHtml + "<br><br>";
 				strFullPage += strOneLine;
