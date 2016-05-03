@@ -172,6 +172,7 @@ function changeImg(objImg)
 		tQuery.descending("createdAt");
 		tQuery.skip (iSkipCount);
 		tQuery.limit (iLimitCount);
+		tQuery.equalTo("BmobPicUrl", "init");
         		tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
@@ -179,11 +180,9 @@ function changeImg(objImg)
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-				var strHtmlNo = "<span style='color:black; background-color:#CCBBAA;'>" + iNo + "</span> ";
 				var strPicUrlHtml = "<img src=\"" + strPicUrl+ "\" onload=\"changeImg(this);\"/>";
-				var strBmobPicUrlHtml = "";
 
-				strOneLine = strHtmlNo + "<br><br>" + strPicUrlHtml + "<br><br>";
+				strOneLine = "<br><br>" + strPicUrlHtml + "<br><br>";
 				strFullPage += strOneLine;
 			}
 		$(idStdout).html (strFullPage);			
@@ -197,8 +196,9 @@ function changeImg(objImg)
 
 	<script>
 	function funcGetCount() {
-		var TableGitJokeWechat = Bmob.Object.extend ("GitJokeWechat");
+		var TableGitJokeWechat = Bmob.Object.extend ("GitJokeWechatPic");
 		var tQuery = new Bmob.Query (TableGitJokeWechat);
+		tQuery.equalTo("BmobPicUrl", "init");
 		tQuery.count({
 			success: function(iTotalCount) {
 				g_iTotalCount = iTotalCount;
