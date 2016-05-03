@@ -183,7 +183,7 @@ function changeImg(objImg)
 				var strPicUrlHtml = "<img src=\"" + strPicUrl+ "\" onload=\"changeImg(this);\"/>";
 				var strBmobPicUrlHtml = "";
 
-				strOneLine = strHtmlNo + " " + strPicUrlHtml + "<br><br><hr><br><br>";
+				strOneLine = strHtmlNo + "<br><br>" + strPicUrlHtml + "<br><br>";
 				strFullPage += strOneLine;
 			}
 		$(idStdout).html (strFullPage);			
