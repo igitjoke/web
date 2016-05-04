@@ -151,7 +151,7 @@ $(function() {
 		        		tQuery.get(that.name, {success: function(theOne) {
 		        			theOne.set('BmobPicUrl', "http://file.bmob.cn/" + obj.url);
 		        			theOne.save ();
-		        			that.hide();
+		        			that.style = "display:none";
 		        			// window.location.href = g_strHtmlFile;
 			            	},
 			            	error: function(error) {
