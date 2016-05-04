@@ -27,23 +27,7 @@ var g_strParamObjectId = funcGetUrlParamValueOf (window.location.href, "objectId
 
 // CONFIRM IMAGE BY OBJECT
 function funcConfirmImgByObject (that) {
-      	Bmob.Image.thumbnail({"image":that.get('PicUrl'),"mode":4,"quality":95,"width":800,"height":800}).then(function(obj) {
-        		if (obj.url)
-        		{ // CONVERT OK
-			var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
-			var tQuery = new Bmob.Query (TableGitJokeWechatPic);
-	        		tQuery.get(that.id, {success: function(theOne) {
-	        			theOne.set('BmobPicUrl', "http://file.bmob.cn/" + obj.url);
-	        			theOne.save ();
-		            	},
-		            	error: function(error) {
-		                	// alert ("Query failed: " + error.code + " " + error.message);
-		            	}
-		        }); 
-	        	}
-      	}).then(null, function (err){
-       		// alert ("err.code:" + err.code + " err.message:"+err.message);
-      	});
+
 }
 
 
@@ -61,7 +45,23 @@ $(document).ready(function() {
 					var strPicUrl = object.get('PicUrl');
 					var strBmobPicUrl = object.get('BmobPicUrl');
 
-					funcConfirmImgByObject(object); 
+				      	Bmob.Image.thumbnail({"image":object.get('PicUrl'),"mode":4,"quality":95,"width":800,"height":800}).then(function(obj) {
+				        	if (obj.url)
+				        	{ // CONVERT OK
+							var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
+							var tQuery = new Bmob.Query (TableGitJokeWechatPic);
+					        		tQuery.get(object.id, {success: function(theOne) {
+					        			theOne.set('BmobPicUrl', "http://file.bmob.cn/" + obj.url);
+					        			theOne.save ();
+						            	},
+						            	error: function(error) {
+						                	// alert ("Query failed: " + error.code + " " + error.message);
+						            	}
+						        }); 
+					      }
+				      	}).then(null, function (err){
+				       		// alert ("err.code:" + err.code + " err.message:"+err.message);
+				      	});					
 				}				
 		       },
 		       error: function(error) {
