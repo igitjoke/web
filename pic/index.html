@@ -26,29 +26,6 @@ $(function() {
 	$('footer h5').css("color", "grey");
 });
 </script>
-<script type="text/javascript">
-function changeImg(objImg)
-{
-	var most = 600;
-	if (objImg.width > objImg.height) {
-		if(objImg.width > most) {
-			var scaling = most/objImg.width;    
-			objImg.width = objImg.width*scaling;
-		} else if (objImg.width < most) {
-			var scaling = most/objImg.width;
-			objImg.width = objImg.width*scaling;			
-		}
-	} else {
-		if(objImg.height > most) {
-			var scaling = most/objImg.height;    
-			objImg.height = objImg.height*scaling;
-		} else if (objImg.height < most) {
-			var scaling = most/objImg.height;
-			objImg.height = objImg.height*scaling;			
-		}
-	}
-}
-</script>
 </head>
 <body>
 <section class="page-header">
@@ -166,7 +143,7 @@ function changeImg(objImg)
 
 	// CONFIRM IMAGE
 	function funcConfirmImg (that) {
-	      	Bmob.Image.thumbnail({"image":that.src,"mode":4,"quality":95,"width":600,"height":600}).then(function(obj) {
+	      	Bmob.Image.thumbnail({"image":that.href,"mode":4,"quality":95,"width":800,"height":800}).then(function(obj) {
 	        		if (obj.url)
 	        		{ // CONVERT OK
 				var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
@@ -174,7 +151,8 @@ function changeImg(objImg)
 		        		tQuery.get(that.name, {success: function(theOne) {
 		        			theOne.set('BmobPicUrl', "http://file.bmob.cn/" + obj.url);
 		        			theOne.save ();
-		        			window.location.href = g_strHtmlFile;
+		        			that.hide();
+		        			// window.location.href = g_strHtmlFile;
 			            	},
 			            	error: function(error) {
 			                	// alert ("Query failed: " + error.code + " " + error.message);
@@ -203,9 +181,9 @@ function changeImg(objImg)
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-				var strPicUrlHtml = "<img name=\""+object.id+"\" src=\"" + strPicUrl+ "\" onload=\"changeImg(this);\" onclick=\"funcConfirmImg(this);\" />";
+				var strPicUrlHtml = "<a name=\""+object.id+"\" href=\"" + strPicUrl+ "\" onclick=\"funcConfirmImg(this); return false;\" >第" + iNo+ "号临时图片，确认转储为永久图片</a>";
 
-				strOneLine = "<br><br>" + strPicUrlHtml + "<br><br>";
+				strOneLine = "<p>" + strPicUrlHtml + "</p>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
