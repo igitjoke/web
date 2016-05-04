@@ -141,6 +141,8 @@ $(function() {
 		}, 40);								
 	});
 
+	var g_iHideCount = 0;
+
 	// CONFIRM IMAGE
 	function funcConfirmImg (that) {
 	      	Bmob.Image.thumbnail({"image":that.href,"mode":4,"quality":95,"width":800,"height":800}).then(function(obj) {
@@ -152,7 +154,10 @@ $(function() {
 		        			theOne.set('BmobPicUrl', "http://file.bmob.cn/" + obj.url);
 		        			theOne.save ();
 		        			that.style = "display:none";
-		        			// window.location.href = g_strHtmlFile;
+		        			g_iHideCount ++;
+		        			if (g_iHideCount >= g_iTotalCount) {
+		        				window.location.href = g_strHtmlFile;
+		        			}
 			            	},
 			            	error: function(error) {
 			                	// alert ("Query failed: " + error.code + " " + error.message);
