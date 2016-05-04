@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<title>删除列表 - 微信传图 - GIT笑话网 - gitjoke.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/stylesheets/github-light.css" media="screen">
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bmob-min.js"></script>
+<script type="text/javascript"> Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");</script>
+<!-- Baidu Tongji //-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- Page Loaded //-->
+<script type="text/javascript">
+$(function() {
+	$('footer h5').css("color", "grey");
+});
+</script>
+<script type="text/javascript">
+function changeImg(objImg)
+{
+	var most = 480;
+	if (objImg.width > objImg.height) {
+		if(objImg.width > most) {
+			var scaling = most/objImg.width;    
+			objImg.width = objImg.width*scaling;
+		} else if (objImg.width < most) {
+			var scaling = most/objImg.width;
+			objImg.width = objImg.width*scaling;			
+		}
+	} else {
+		if(objImg.height > most) {
+			var scaling = most/objImg.height;    
+			objImg.height = objImg.height*scaling;
+		} else if (objImg.height < most) {
+			var scaling = most/objImg.height;
+			objImg.height = objImg.height*scaling;			
+		}
+	}
+}
+</script>
+</head>
+<body>
+<section class="page-header">
+	<h3 class="project-name">删除列表 - 微信传图 - GIT笑话网 - gitjoke.com</h3>
+</section>
+<section class="main-content">
+	<p>
+		<a href="/index.html" target=_self>笑话精选</a> |
+		<a href="/story/index.html" target=_self>理发室故事</a> |
+		<a href="/wechat/index.html" target=_self>微信群聊</a> |
+		<span style="background-color: #FF33AA;"><b>微信传图</b></span> |
+		<a href="/one.html" target=_self>一个笑话</a> |
+		<a href="/lengxiaohua.html" target=_self>笑话仓库</a> |
+		<a href="/link.html" target=_self>联系方式</a> 
+	</p>
+	<!-- stdout //-->
+	<p id="idStdout0"></p>
+	<p id="idStdout1">加载中，请稍后片刻......</p>
+	<p id="idStdout2"></p>
+	<p id="idStdout3"></p>
+	<p id="idStdout4"></p>
+	<form id="idFormNext">
+		<input type="button" id="idHomeBtn" value="第一页" onclick="funcGoHomePage(this);" />
+		&nbsp;&nbsp;
+		<input type="button" id="idNextBtn" value="上一页" onclick="funcGoPrevPage(this);" />
+		<input type="button" id="idNextBtn" value="下一页" onclick="funcGoNextPage(this);" />
+	</form>
+
+
+	<script>
+	function funcGetUrlParamValueOf (url, name) {
+		var reg = new RegExp('(\\?|&)' + name + '=([^&?]*)', 'i');
+		var arr = url.match(reg);
+		if (arr) {
+			return arr[2];
+		}
+		return null;
+	}
+	</script>
+
+	<script>
+	var g_iTotalCount = 0;
+	var g_strHtmlFile = "/picture/index.html";
+
+	function funcGoHomePage (){
+		window.location.href = g_strHtmlFile;
+	}
+	function funcGoPrevPage (){
+		if (parseInt(g_iPageNo, 10)-1 >= 0) {
+			window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iPageNo,10)-1);
+		} else {
+			if (parseInt(g_iTotalCount,10)%18===0) {
+				window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iTotalCount/18,10)-1);
+			} else {
+				window.location.href = g_strHtmlFile + "?iPageNo=" + (Math.floor (parseInt(g_iTotalCount/18,10)));
+			}
+		}
+	}
+	function funcGoNextPage (){
+		if (18*(parseInt(g_iPageNo,10)+1) >= g_iTotalCount) {	// 每页18个图片
+			window.location.href = g_strHtmlFile;  // 超过则返回第一页
+		} else {
+			window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iPageNo,10)+1);
+		}
+	}
+	function funcGetRandomOne() {
+		var iWhichPage = Math.floor(Math.random()*(g_iTotalCount/18));
+		window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(iWhichPage,10));
+	}
+	</script>
+
+	<!-- RUN //-->
+	<script type="text/javascript">
+
+	var g_iPageNo = funcGetUrlParamValueOf (window.location.href, "iPageNo");
+	if (!g_iPageNo) {
+		g_iPageNo = 0;
+	}
+
+	// READY
+	$(document).ready(function() {
+
+		setTimeout (function () {
+			$.ajax({url:"/get1.html", 
+				success:function(msg){
+					$("#idStdout1").html (msg);
+				}
+			});
+		}, 10);
+
+		setTimeout (function () {
+			$.ajax({url:"/get2.html", 
+				success:function(msg){
+					$("#idStdout2").html (msg);
+				}
+			});
+		}, 20);
+
+		setTimeout (function () {
+			$.ajax({url:"/get3.html", 
+				success:function(msg){
+					$("#idStdout3").html (msg);
+				}
+			});
+		}, 30);
+
+		setTimeout (function () {
+			$.ajax({url:"/getcount.html",
+				success:function(msg){
+					$("#idStdout0").html (msg);
+				}
+			});
+		}, 40);								
+	});
+
+	// GET JOKES
+	function funcShowGitJokeAll (iSkipCount, iLimitCount, idStdout){
+		var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
+		var tQuery = new Bmob.Query (TableGitJokeWechatPic);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.descending("createdAt");
+		tQuery.skip (iSkipCount);
+		tQuery.limit (iLimitCount);
+       	tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var iNo = object.get('iNo');
+				var strPicUrl = object.get('PicUrl');
+				var strBmobPicUrl = object.get('BmobPicUrl');
+
+				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImg(this);\" />";
+				var strDeleteByIdHtml = "<a href='/picture/picture_delete_one.html?objectId=" + object.id + "' target=_blank>【删除】</a>";
+
+				strOneLine = "<br><br>" + strPicUrlHtml + "<br>" + strDeleteByIdHtml + "<br>";
+				strFullPage += strOneLine;
+			}
+			$(idStdout).html (strFullPage);			
+	            	},
+	            	error: function(error) {
+	                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
+	            	}
+	        }); 
+	}
+	</script>
+
+	<script>
+	function funcGetCount() {
+		var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
+		var tQuery = new Bmob.Query (TableGitJokeWechatPic);
+		tQuery.count({
+			success: function(iTotalCount) {
+				g_iTotalCount = iTotalCount;
+				var strShowPageInfo = "微信订阅号(gitjoke)图片共<font color=blue size=6>" + iTotalCount + "</font>张，" +
+					"共"+(Math.ceil(parseInt(iTotalCount,10)/18))+"页，当前第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
+				$("#idStdout0").html (strShowPageInfo);
+				$("#idStdout4").html (strShowPageInfo);
+			},
+			error: function(error) {
+				$("#idStdout0").text (error.message);
+				$("#idStdout4").text (error.message);
+			}
+		}); 
+	}
+	</script>	
+
+      	<footer class="site-footer">
+      	<h5>@ 2016 GIT笑话 - gitjoke.com | 隐私声明和 Cookie
+      	<a href="http://go.microsoft.com/fwlink/?LinkId=248686&CLCID=804" target=_blank>@</a></h5>
+      	</footer>
+
+</section>
+</body>
+</html>
