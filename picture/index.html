@@ -21,32 +21,27 @@ var _hmt = _hmt || [];
 })();
 </script>
 <!-- Page Loaded //-->
-<script type="text/javascript">
+<script>
 $(function() {
 	$('footer h5').css("color", "grey");
 });
 </script>
-<script type="text/javascript">
-function changeImg(objImg)
+<script>
+function changeImg(tImg)
 {
-	var most = 480;
-	if (objImg.width > objImg.height) {
-		if(objImg.width > most) {
-			var scaling = most/objImg.width;    
-			objImg.width = objImg.width*scaling;
-		} else if (objImg.width < most) {
-			var scaling = most/objImg.width;
-			objImg.width = objImg.width*scaling;			
-		}
+	var most = 300;
+	var scaling = 0.0;
+	if (tImg.width > most){
+		scaling = most / tImg.width;
+		console.log (">", scaling);
+	} else if (tImg.width === most) {
+		scaling = 1.0;
+		console.log ("=", scaling);
 	} else {
-		if(objImg.height > most) {
-			var scaling = most/objImg.height;    
-			objImg.height = objImg.height*scaling;
-		} else if (objImg.height < most) {
-			var scaling = most/objImg.height;
-			objImg.height = objImg.height*scaling;			
-		}
+		scaling = most / tImg.width;
+		console.log ("<", scaling);
 	}
+	tImg.width = tImg.width * scaling;
 }
 </script>
 </head>
@@ -182,9 +177,9 @@ function changeImg(objImg)
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-				var strPicUrlHtml = "<center><img src=\"" + strBmobPicUrl+ "\" onload=\"changeImg(this);\" /></center>";
+				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImg(this);\" />";
 
-				strOneLine = "<p>" + strPicUrlHtml + "</p><hr><hr><hr><hr><hr><hr>";
+				strOneLine = "<p>" + strPicUrlHtml + "</p><br>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
