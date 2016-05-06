@@ -169,11 +169,11 @@ function changeImg(tImg)
 				var strRole = object.get('strRole');
 				var strColor;
 				if (i%6==0||i%6==1){
-					strColor = "green";
+					strColor = "blue";
 				} else if (i%6==2||i%6==3) {
 					strColor = "blue";
 				} else {
-					strColor = "black";
+					strColor = "blue";
 				}
 
 				var strUpdateByIdHtml = "<a href='/update.html?objectId=" + strObjectID + "' target=_blank><b>【修改】</b></a>";
@@ -181,7 +181,8 @@ function changeImg(tImg)
 				var strNameHtml = "<b><font size=6 color=" + strColor + ">" + strName + "</font></b>";
 				var strContentHtml = strContent.replace (/\n/g, "<br />");
 				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
-				var strGodCommentHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<b><font color=red>网友评论: " + strGodComment + "</font></b>";
+				var strGodComment2 = strGodComment.replace (/\n/g, "<br />&nbsp; &nbsp; &nbsp; &nbsp;");
+				var strGodCommentHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<font color=red>" + strGodComment2 + "</font>";
 				if (!strGodComment) {
 					strGodCommentHtml = "";
 				}
