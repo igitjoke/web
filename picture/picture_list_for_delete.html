@@ -33,13 +33,10 @@ function changeImg(tImg)
 	var scaling = 0.0;
 	if (tImg.width > most){
 		scaling = most / tImg.width;
-		console.log (">", scaling);
 	} else if (tImg.width === most) {
 		scaling = 1.0;
-		console.log ("=", scaling);
 	} else {
 		scaling = most / tImg.width;
-		console.log ("<", scaling);
 	}
 	tImg.width = tImg.width * scaling;
 }

@@ -33,13 +33,10 @@ function changeImg(tImg)
 	var scaling = 0.0;
 	if (tImg.width > most){
 		scaling = most / tImg.width;
-		console.log (">", scaling);
 	} else if (tImg.width === most) {
 		scaling = 1.0;
-		console.log ("=", scaling);
 	} else {
 		scaling = most / tImg.width;
-		console.log ("<", scaling);
 	}
 	tImg.width = tImg.width * scaling;
 }
@@ -181,10 +178,13 @@ function changeImg(tImg)
 				var strNameHtml = "<b><font size=6 color=" + strColor + ">" + strName + "</font></b>";
 				var strContentHtml = strContent.replace (/\n/g, "<br />");
 				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
-				var strGodComment2 = strGodComment.replace (/\n/g, "<br />&nbsp; &nbsp; &nbsp; &nbsp;");
-				var strGodCommentHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<font color=red>" + strGodComment2 + "</font>";
-				if (!strGodComment) {
-					strGodCommentHtml = "";
+				var strGodCommentHtml;
+				if (strGodComment) {
+					var strGodComment2 = strGodComment.replace (/\n/g, "<br />&nbsp; &nbsp; &nbsp; &nbsp;");
+					strGodCommentHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<font color=red>" + strGodComment2 + "</font>";
+					if (!strGodComment) {
+						strGodCommentHtml = "";
+					}
 				}
 				var strRoleHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<b><span style=\"background-color:yellow;\">第一主角: " + strRole + "</span></b>";
 				if (!strRole) {
