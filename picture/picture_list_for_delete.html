@@ -172,10 +172,10 @@ function changeImg(tImg)
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImg(this);\" />";
+				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImg(this);\" style=\"border-style: solid solid solid solid; border-width: 1px; \" />";
 				var strDeleteByIdHtml = "<a href='/picture/picture_delete_one.html?objectId=" + object.id + "' target=_blank>【删除】</a>";
 
-				strOneLine = "<br><br>" + strPicUrlHtml + "<br>" + strDeleteByIdHtml + "<br>";
+				strOneLine = "<br>" + strPicUrlHtml + "<br>" + strDeleteByIdHtml + "<br>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			

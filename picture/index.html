@@ -174,9 +174,9 @@ function changeImg(tImg)
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImg(this);\" />";
+				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImg(this);\" style=\"border-style: solid solid solid solid; border-width: 1px; \" />";
 
-				strOneLine = "<p>" + strPicUrlHtml + "</p><br>";
+				strOneLine = "<p>" + strPicUrlHtml + "</p>";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
