@@ -178,7 +178,7 @@ function changeImg(tImg)
 				var strNameHtml = "<b><font size=6 color=" + strColor + ">" + strName + "</font></b>";
 				var strContentHtml = strContent.replace (/\n/g, "<br />");
 				var strImgUrlHtml = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
-				var strGodCommentHtml;
+				var strGodCommentHtml = "";
 				if (strGodComment) {
 					var strGodComment2 = strGodComment.replace (/\n/g, "<br />&nbsp; &nbsp; &nbsp; &nbsp;");
 					strGodCommentHtml = "&nbsp; &nbsp; &nbsp; &nbsp;<font color=red>" + strGodComment2 + "</font>";
