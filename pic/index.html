@@ -148,7 +148,7 @@ $(function() {
 
 	// CONFIRM IMAGE
 	function funcConfirmImg (that) {
-	      	Bmob.Image.thumbnail({"image":that.href,"mode":4,"quality":98,"width":300,"height":300}).then(function(obj) {
+	      	Bmob.Image.thumbnail({"image":that.href,"mode":4,"quality":98,"width":600,"height":600}).then(function(obj) {
 	        		if (obj.url) { // CONVERT OK
 				var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
 				var tQuery = new Bmob.Query (TableGitJokeWechatPic);
