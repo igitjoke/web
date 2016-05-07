@@ -107,10 +107,6 @@ function changeImg(tImg)
 			window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(g_iPageNo,10)+1);
 		}
 	}
-	function funcGetRandomOne() {
-		var iWhichPage = Math.floor(Math.random()*(g_iTotalCount/18));
-		window.location.href = g_strHtmlFile + "?iPageNo=" + (parseInt(iWhichPage,10));
-	}
 	</script>
 
 	<!-- RUN //-->
@@ -174,7 +170,7 @@ function changeImg(tImg)
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImg(this);\" style=\"border-style: solid solid solid solid; border-width: 1px; \" />";
+				var strPicUrlHtml = "<a href=\"" + strBmobPicUrl + "\" target=_blank>" + "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImg(this);\" style=\"border-style: solid solid solid solid; border-width: " + (i+1)*2 + "px; \" />" + "</a>";
 
 				strOneLine = "<p>" + strPicUrlHtml + "</p>";
 				strFullPage += strOneLine;
