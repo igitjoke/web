@@ -38,7 +38,7 @@ $(document).ready(function() {
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-			      	Bmob.Image.thumbnail({"image":object.get('PicUrl'),"mode":4,"quality":98,"width":800,"height":800}).then(function(obj) {
+			      	Bmob.Image.thumbnail({"image":object.get('PicUrl'),"mode":4,"quality":99,"width":800,"height":800}).then(function(obj) {
 			        	if (obj.url)
 			        	{ // CONVERT OK
 						var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");

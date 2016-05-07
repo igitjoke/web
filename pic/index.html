@@ -144,7 +144,7 @@ $(function() {
 
 	// CONFIRM IMAGE
 	function funcConfirmImg (that) {
-	      	Bmob.Image.thumbnail({"image":that.href,"mode":4,"quality":98,"width":600,"height":600}).then(function(obj) {
+	      	Bmob.Image.thumbnail({"image":that.href,"mode":4,"quality":99,"width":800,"height":800}).then(function(obj) {
 	        		if (obj.url) { // CONVERT OK
 				var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
 				var tQuery = new Bmob.Query (TableGitJokeWechatPic);
@@ -228,7 +228,7 @@ $(function() {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
 				(function (object){
-				      	Bmob.Image.thumbnail({"image":object.get('PicUrl'),"mode":4,"quality":98,"width":600,"height":600}).then(function(obj) {
+				      	Bmob.Image.thumbnail({"image":object.get('PicUrl'),"mode":4,"quality":99,"width":800,"height":800}).then(function(obj) {
 				        		if (obj.url) {
 							var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
 							var tConvQuery = new Bmob.Query (TableGitJokeWechatPic);
