@@ -29,7 +29,7 @@ $(function() {
 <script>
 function changeImg(tImg)
 {
-	var most = 200;
+	var most = 270;
 	var scaling = 0.0;
 	if (tImg.width > most){
 		scaling = most / tImg.width;
@@ -175,7 +175,7 @@ function changeImg(tImg)
 				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImg(this);\" style=\"border-style: solid solid solid solid; border-width: 1px; \" />";
 				var strDeleteByIdHtml = "<a href='/picture/picture_delete_one.html?objectId=" + object.id + "' target=_blank>【删除】</a>";
 
-				strOneLine = "<br>" + strPicUrlHtml + "<br>" + strDeleteByIdHtml + "<br>";
+				strOneLine = "<div style=\"display:inline\">" + strPicUrlHtml + "&nbsp;" + strDeleteByIdHtml + "</div>&nbsp;";
 				strFullPage += strOneLine;
 			}
 			$(idStdout).html (strFullPage);			
