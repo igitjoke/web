@@ -14,7 +14,7 @@
 <li>标题: <input type="text" name="tTitle" id="idTitle" size="60" autofocus /></li></br>
 <li>内容: <textarea name="tContent" id="idContent" rows=15 cols=58></textarea></li></br>
 <li>图片: <input type="text" name="tImage" id="idImage" size="60" /><br /><br />
-	&nbsp;&nbsp;&nbsp;<a href="http://cn.bing.com/images" target=_blank>必应图片搜索</a>
+	&nbsp;&nbsp;&nbsp;<a href="http://cn.bing.com/images" target=_blank onclick="$('#idImage').select();$('#idImage').focus();">必应图片搜索</a>
 	&nbsp;&nbsp;&nbsp;<a href="" onclick="funcNoPicture(this); return false;">暂无图片</a>
 	&nbsp;&nbsp;&nbsp;<a href="" onclick="funcCleanPicture(this); return false;">清空图片</a></li></br>
 <li>评论: <textarea type="text" name="tComment" id="idComment" rows=10 cols=58 /></textarea></li></br>
