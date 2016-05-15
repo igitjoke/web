@@ -61,6 +61,13 @@ $(document).ready(function() {
 					$("#idRole").val (tGitJoke.get("strRole"));
 					$("#idTitle").focus();
 					$("#idForm1").show();
+					if ($("#idRole").val() === "") {
+						$("#idRole").select();
+						$("#idRole").focus();
+					} else if ($("#idComment").val() === "") {
+						$("#idComment").select();
+						$("#idComment").focus();
+					}
 				},
 				error: function(object, error) {
 					$("#idStdout").html("<font color=red>Cannot load the joke of " + g_strParamObjectId + "!</font>");
