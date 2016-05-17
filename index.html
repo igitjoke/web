@@ -41,6 +41,21 @@ function changeImg(tImg)
 	tImg.width = tImg.width * scaling;
 }
 </script>
+<script>
+function changeImgPicture(tImg)
+{
+	var most = 270;
+	var scaling = 0.0;
+	if (tImg.width > most){
+		scaling = most / tImg.width;
+	} else if (tImg.width === most) {
+		scaling = 1.0;
+	} else {
+		scaling = most / tImg.width;
+	}
+	tImg.width = tImg.width * scaling;
+}
+</script>
 </head>
 <body>
 <section class="page-header">
@@ -58,6 +73,10 @@ function changeImg(tImg)
 	</p>
 	<p id="idPoster" style="color:black; background-color: #FFBBAA;"></p>	
 	<!-- stdout //-->
+	<p id="idPicture0"><span style="color:blue;">Latest 3 Wechat Pictures:</span></p>
+	<p id="idPicture1"></p>
+	<p id="idPicture2"><a href="/picture/index.html">More Pictures...</a></p>
+	<p id="idPicture3"><hr></p>
 	<p id="idStdout0"></p>
 	<p id="idStdout1">加载中，请稍后片刻......</p>
 	<p id="idStdout2"></p>
@@ -123,6 +142,11 @@ function changeImg(tImg)
 	// READY
 	$(document).ready(function() {
 		funcGetPoster (1);
+
+		setTimeout(function() {
+			funcShowGitJokePicture (0, 3, "#idPicture1");
+		}, 0);
+
 		setTimeout (function () {
 			$.ajax({url:"/get1.html", 
 				success:function(msg){
@@ -248,6 +272,39 @@ function changeImg(tImg)
                 	$("#idPoster").text ("Query failed: " + error.code + " " + error.message);
             		}}); 		
 	}
+	</script>
+
+	<script>
+	// GET PICTURE
+	function funcShowGitJokePicture (iSkipCount, iLimitCount, idStdout){
+		var TableGitJokeWechatPic = Bmob.Object.extend ("GitJokeWechatPic");
+		var tQuery = new Bmob.Query (TableGitJokeWechatPic);
+		var strFullPage = "";
+		var strOneLine = "";
+		tQuery.descending("createdAt");
+		tQuery.skip (iSkipCount);
+		tQuery.limit (iLimitCount);
+		tQuery.notEqualTo("BmobPicUrl", "init");
+        		tQuery.find({success: function(results) {
+			for (var i = 0; i < results.length; i++) {
+				var object = results[i];
+				var iNo = object.get('iNo');
+				var strPicUrl = object.get('PicUrl');
+				var strBmobPicUrl = object.get('BmobPicUrl');
+
+				var strPicUrlHtml = "<a href=\"/picture/index.html\" target=_blank>" + "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImgPicture(this);\" style=\"border-style: solid solid solid solid; border-width: 5px; \" />" + "</a>";
+
+				strOneLine = "<div style=\"display:inline\">" + strPicUrlHtml + "</div>&nbsp;";
+				strFullPage += strOneLine;
+			}
+			$(idStdout).html (strFullPage);			
+	            	},
+	            	error: function(error) {
+	                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
+	            	}
+	        }); 
+	}
+	</script>	
 	</script>
 
       	<footer class="site-footer">
