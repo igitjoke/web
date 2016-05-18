@@ -141,11 +141,13 @@ function changeImgPicture(tImg)
 
 	// READY
 	$(document).ready(function() {
-		funcGetPoster (1);
 
-		setTimeout(function() {
-			funcShowGitJokePicture (0, 3, "#idPicture1");
-		}, 0);
+		$("#idPicture0").hide();
+		$("#idPicture1").hide();
+		$("#idPicture2").hide();
+		$("#idPicture3").hide();
+
+		funcGetPoster (1);
 
 		setTimeout (function () {
 			$.ajax({url:"/get1.html", 
@@ -178,6 +180,10 @@ function changeImgPicture(tImg)
 				}
 			});
 		}, 40);
+
+		setTimeout(function() {
+			funcShowGitJokePicture (0, 3, "#idPicture1");
+		}, 100);		
 	});
 
 	// GET JOKES
@@ -189,7 +195,7 @@ function changeImgPicture(tImg)
 		tQuery.descending("createdAt");
 		tQuery.skip (iSkipCount);
 		tQuery.limit (iLimitCount);
-        	tQuery.find({success: function(results) {
+        		tQuery.find({success: function(results) {
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
 				var strName = object.get('strName');
@@ -243,6 +249,13 @@ function changeImgPicture(tImg)
 					"共"+(Math.ceil(parseInt(iTotalCount,10)/18))+"页，当前第<font color=blue size=6>"+ (parseInt(g_iPageNo,10)+1) +"</font>页。";
 				$("#idStdout0").html (strShowPageInfo);
 				$("#idStdout4").html (strShowPageInfo);
+
+				if (g_iTotalCount === 0) {
+					$("#idPicture0").show();
+					$("#idPicture1").show();
+					$("#idPicture2").show();
+					$("#idPicture3").show();
+				}
 			},
 			error: function(error) {
 				$("#idStdout0").text (error.message);
