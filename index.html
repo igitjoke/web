@@ -44,7 +44,7 @@ function changeImg(tImg)
 <script>
 function changeImgPicture(tImg)
 {
-	var most = 270;
+	var most = 60;
 	var scaling = 0.0;
 	if (tImg.width > most){
 		scaling = most / tImg.width;
@@ -73,9 +73,9 @@ function changeImgPicture(tImg)
 	</p>
 	<p id="idPoster" style="color:black; background-color: #FFBBAA;"></p>	
 	<!-- stdout //-->
-	<p id="idPicture0"><span style="color:blue;"><a href="/picture/index.html">微信传图</a>最新3幅截图:</span></p>
+	<p id="idPicture0">微信传图，来自网友上传的最新5幅截图:</p>
 	<p id="idPicture1"></p>
-	<p id="idPicture2"><a href="/picture/index.html">更多精彩截图...</a></p>
+	<p id="idPicture2"></p>
 	<p id="idPicture3"><hr></p>
 	<p id="idStdout0"></p>
 	<p id="idStdout1">加载中，请稍后片刻......</p>
@@ -144,7 +144,7 @@ function changeImgPicture(tImg)
 		funcGetPoster (1);
 
 		setTimeout(function() {
-			funcShowGitJokePicture (0, 3, "#idPicture1");
+			funcShowGitJokePicture (0, 5, "#idPicture1");
 		}, 0);
 
 		setTimeout (function () {
@@ -292,12 +292,12 @@ function changeImgPicture(tImg)
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImgPicture(this);\" style=\"border-style: solid solid solid solid; border-width: 5px; \" />";
+				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImgPicture(this);\" style=\"border-style: solid solid solid solid; border-width: 1px; \" />";
 
 				strOneLine = "<div style=\"display:inline\">" + strPicUrlHtml + "</div>&nbsp;";
 				strFullPage += strOneLine;
 			}
-			$(idStdout).html (strFullPage);			
+			$(idStdout).html (strFullPage + "&nbsp; <a href=\"/picture/index.html\">更多精彩截图...</a>");			
 	            	},
 	            	error: function(error) {
 	                	$(idStdout).text ("Query failed: " + error.code + " " + error.message);
