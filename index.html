@@ -73,9 +73,9 @@ function changeImgPicture(tImg)
 	</p>
 	<p id="idPoster" style="color:black; background-color: #FFBBAA;"></p>	
 	<!-- stdout //-->
-	<p id="idPicture0"><span style="color:blue;">Latest 3 Wechat Pictures:</span></p>
+	<p id="idPicture0"><span style="color:blue;"><a href="/picture/index.html">微信传图</a>最新3幅截图:</span></p>
 	<p id="idPicture1"></p>
-	<p id="idPicture2"><a href="/picture/index.html">More Pictures...</a></p>
+	<p id="idPicture2"><a href="/picture/index.html">更多精彩截图...</a></p>
 	<p id="idPicture3"><hr></p>
 	<p id="idStdout0"></p>
 	<p id="idStdout1">加载中，请稍后片刻......</p>
@@ -292,7 +292,7 @@ function changeImgPicture(tImg)
 				var strPicUrl = object.get('PicUrl');
 				var strBmobPicUrl = object.get('BmobPicUrl');
 
-				var strPicUrlHtml = "<a href=\"/picture/index.html\" target=_blank>" + "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImgPicture(this);\" style=\"border-style: solid solid solid solid; border-width: 5px; \" />" + "</a>";
+				var strPicUrlHtml = "<img src=\"" + strBmobPicUrl+ "\" onload=\"changeImgPicture(this);\" style=\"border-style: solid solid solid solid; border-width: 5px; \" />";
 
 				strOneLine = "<div style=\"display:inline\">" + strPicUrlHtml + "</div>&nbsp;";
 				strFullPage += strOneLine;
